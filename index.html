@@ -125,6 +125,50 @@
       p a:hover {
         color: #0066cc;
       }
+
+      /* Alternating layout for side by side content + images */
+      .alt-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+      .alt-row.reverse {
+        flex-direction: row-reverse;
+      }
+      .alt-text,
+      .alt-image {
+        flex: 1 1 45%;
+        min-width: 280px;
+      }
+      .alt-text p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+      }
+      .alt-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+      }
+      .alt-image img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+      }
+
+      /* Responsive tweaks */
+      @media (max-width: 700px) {
+        .alt-row {
+          flex-direction: column !important;
+        }
+        .alt-text,
+        .alt-image {
+          flex: 1 1 100%;
+        }
+      }
     </style>
   </head>
   <body>
@@ -143,77 +187,122 @@
     </header>
 
     <div class="container">
-      <h1>Home Page</h1>
-
+      <!-- New Home Page section with side-by-side layout -->
       <section>
-        <p>
-          The key to creativity in early childhood education is imagination,
-          self-expression and problem-solving. It helps kids learn through
-          doing; they can act out their ideas, learn to think for themselves and
-          build confidence. In the curriculum, creativity enables children to
-          develop their imagination that cuts across the disciplines of art,
-          drama, music and physical activities. By incorporating creativity into
-          these aspects of teaching, educators can create spaces where children
-          flourish, express themselves, and connect to others. This method
-          allows children to explore their imagination openly, enabling them to
-          think outside the box.
-        </p>
+        <div class="alt-row">
+          <div class="alt-text">
+            <h1>Home Page</h1>
+            <p>
+              The key to creativity in early childhood education is imagination,
+              self-expression and problem-solving. It helps kids learn through
+              doing; they can act out their ideas, learn to think for themselves
+              and build confidence. In the curriculum, creativity enables
+              children to develop their imagination that cuts across the
+              disciplines of art, drama, music and physical activities. By
+              incorporating creativity into these aspects of teaching, educators
+              can create spaces where children flourish, express themselves, and
+              connect to others. This method allows children to explore their
+              imagination openly, enabling them to think outside the box.
+            </p>
+            <div class="alt-image">
+              <img
+                src=" network-connection-graphic-overlay-background.jpg"
+                alt="Children drawing and creating art"
+                height="10"
+              />
+            </div>
 
-        <p>
-          Many theories support the belief that creativity is important and
-          crucial. Several social constructivism highlights the role of social
-          interaction in creative development (Hartmann, 2015). A child learns
-          and creates with the help of his peer group and teacher support. This
-          suggests using cultural tools that help to enhance the creative growth
-          of the children, for instance stories or drawing. In a similar vein,
-          other theory of multiple intelligences acknowledges other types of
-          strengths such as spatial intelligences in art or interpersonal
-          intelligence in dramatic play. This allows educators to tailor
-          activities for individual learning styles. According to several
-          constructivist perspective, children learnt through exploration and
-          play and, therefore, it is through play that this creative expression
-          emerges. All theories cited provide weighty scaffolding for the
-          understanding of raising creativity in the early years.
-        </p>
+            <p>
+              Many theories support the belief that creativity is important and
+              crucial. Several social constructivism highlights the role of
+              social interaction in creative development (Hartmann, 2015). A
+              child learns and creates with the help of his peer group and
+              teacher support. This suggests using cultural tools that help to
+              enhance the creative growth of the children, for instance stories
+              or drawing. In a similar vein, other theory of multiple
+              intelligences acknowledges other types of strengths such as
+              spatial intelligences in art or interpersonal intelligence in
+              dramatic play. This allows educators to tailor activities for
+              individual learning styles. According to several constructivist
+              perspective, children learnt through exploration and play and,
+              therefore, it is through play that this creative expression
+              emerges. All theories cited provide weighty scaffolding for the
+              understanding of raising creativity in the early years.
+            </p>
+            <!-- <div class="alt-image">
+              <img
+                src="nursery_teacher_2.jpg"
+                alt="Children drawing and creating art"
+                height="10"
+              />
+            </div> -->
 
-        <p>
-          Early childhood teachers help build creativity by providing open-ended
-          materials and allowing children to explore without too many limits.
-          For example, giving children different materials like clay, paint and
-          things from your recycling bin lets them play freely (Akpan, 2020).
-          You may also let them role play wherever drama happens by providing
-          props and costumes. The teacher provides the tools and opportunity for
-          risk-taking and divergent thinking. You can ask open-ended questions,
-          celebrate different outcomes and use digital tools such as tablets or
-          video to help document and reflect on creativity. According to the
-          componential theory of creativity, domain-relevant skills, intrinsic
-          motivation, and environment must be combined to generate creativity.
-        </p>
+            <p>
+              Early childhood teachers help build creativity by providing
+              open-ended materials and allowing children to explore without too
+              many limits. For example, giving children different materials like
+              clay, paint and things from your recycling bin lets them play
+              freely (Akpan, 2020). You may also let them role play wherever
+              drama happens by providing props and costumes. The teacher
+              provides the tools and opportunity for risk-taking and divergent
+              thinking. You can ask open-ended questions, celebrate different
+              outcomes and use digital tools such as tablets or video to help
+              document and reflect on creativity. According to the componential
+              theory of creativity, domain-relevant skills, intrinsic
+              motivation, and environment must be combined to generate
+              creativity.
+            </p>
+            <div class="alt-image">
+              <img
+                src="nursery_teacher_2.jpg"
+                alt="Children drawing and creating art"
+                height="10"
+              />
+            </div>
 
-        <p>
-          This website talks about how creativity can be encouraged through art
-          and drama curriculum. The areas allow the child to express and develop
-          skills which are appropriate for different development stages. The
-          website provides customized learning experiences based on four age
-          groups of 0-2 years, 2-3 years, 3-5 years and 6-8 years age wise. The
-          content is developmentally appropriate and based on credible sources
-          and research. Infants might do some sensory art while older students
-          could do a play together. Evidence in the form of short videos
-          relating to the enactments is further proof of the children’s
-          creativity as well as a reflective one.
-        </p>
+            <p>
+              This website talks about how creativity can be encouraged through
+              art and drama curriculum. The areas allow the child to express and
+              develop skills which are appropriate for different development
+              stages. The website provides customized learning experiences based
+              on four age groups of 0-2 years, 2-3 years, 3-5 years and 6-8
+              years age wise. The content is developmentally appropriate and
+              based on credible sources and research. Infants might do some
+              sensory art while older students could do a play together.
+              Evidence in the form of short videos relating to the enactments is
+              further proof of the children’s creativity as well as a reflective
+              one.
+            </p>
+            <!-- <div class="alt-image">
+              <img
+                src="nursery_teacher_2.jpg"
+                alt="Children drawing and creating art"
+                height="10"
+              />
+            </div> -->
 
-        <p>
-          When you see references, it means that everything was evidence-based –
-          from the educational research and best practices. This method allows
-          educational theorists to fulfil their responsibilities while also
-          giving practitioners the chance to use. The website hopes to encourage
-          teachers to create imaginative lessons that are enriching and
-          transformative for young minds. In the end, the project promotes the
-          idea that creativity is not special, but necessary for learning in
-          early childhood and that children can start learning for life.
-        </p>
+            <p>
+              When you see references, it means that everything was
+              evidence-based – from the educational research and best practices.
+              This method allows educational theorists to fulfil their
+              responsibilities while also giving practitioners the chance to
+              use. The website hopes to encourage teachers to create imaginative
+              lessons that are enriching and transformative for young minds. In
+              the end, the project promotes the idea that creativity is not
+              special, but necessary for learning in early childhood and that
+              children can start learning for life.
+            </p>
+          </div>
+          <!-- <div class="alt-image">
+            <img
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
+              alt="Children drawing and creating art"
+            />
+          </div> -->
+        </div>
       </section>
+
+      <!-- Rest of your sections unchanged below -->
 
       <!-- Art Section -->
       <section>
@@ -387,16 +476,43 @@
       <!-- Critical Analysis Section -->
       <section>
         <h2>Critical Analysis</h2>
-        <p>
-          Colour Blocks for 0–2 years engaged children in stacking and colour
-          recognition. The addition of sound elements (tapping blocks together)
-          drew more interest, but some infants lost focus—introducing simple
-          songs about colours could help. Music Math for 3–5 years was an
-          exciting combination of rhythm and counting. Some struggled to keep
-          the beat while drawing; starting with simpler patterns would build
-          confidence. Both activities demonstrated the value of blending
-          disciplines, promoting both creative and analytical thinking.
-        </p>
+
+        <div class="alt-row">
+          <div class="alt-text">
+            <p>
+              Colour Blocks for 0–2 years engaged children in stacking and
+              colour recognition. The addition of sound elements (tapping blocks
+              together) drew more interest, but some infants lost
+              focus—introducing simple songs about colours could help.
+            </p>
+          </div>
+          <div class="alt-image">
+            <img
+              src="group-kids-friends-arm-around-sitting-together.jpg"
+              alt="Children drawing and creating art"
+              height="10"
+            />
+          </div>
+        </div>
+
+        <div class="alt-row reverse">
+          <div class="alt-text">
+            <p>
+              Music Math for 3–5 years was an exciting combination of rhythm and
+              counting. Some struggled to keep the beat while drawing; starting
+              with simpler patterns would build confidence. Both activities
+              demonstrated the value of blending disciplines, promoting both
+              creative and analytical thinking.
+            </p>
+          </div>
+          <div class="alt-image">
+            <img
+              src="10058503.jpg"
+              alt="Children drawing and creating art"
+              height="10"
+            />
+          </div>
+        </div>
       </section>
     </div>
 
