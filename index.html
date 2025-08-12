@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <style>
+      /* Base styles */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f9f9f9;
+        color: #222;
+        line-height: 1.6;
+      }
+      header {
+        background: #004080;
+        color: white;
+        padding: 1rem;
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      header a {
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: background 0.3s ease;
+      }
+      header a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+      }
+      .container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 2rem 1rem;
+        background: white;
+        box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+        border-radius: 8px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #004080;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s forwards;
+      }
+      h2 {
+        margin-top: 2.5rem;
+      }
+      h3 {
+        margin-top: 1.5rem;
+      }
+      p,
+      ul {
+        margin-bottom: 1.25rem;
+        opacity: 0;
+        animation: fadeIn 1.2s forwards;
+      }
+      ul {
+        margin-left: 1.5rem;
+      }
+      /* Animation delays for paragraphs to appear nicely */
+      section p:nth-child(odd),
+      section ul:nth-child(odd) {
+        animation-delay: 0.4s;
+      }
+      section p:nth-child(even),
+      section ul:nth-child(even) {
+        animation-delay: 0.6s;
+      }
+      /* Video embed */
+      .video-embed {
+        margin: 2rem 0 3rem 0;
+        opacity: 0;
+        animation: fadeIn 1.5s forwards;
+        animation-delay: 0.8s;
+      }
+      .video-embed iframe {
+        width: 100%;
+        height: 400px;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgb(0 0 0 / 0.15);
+      }
+      /* Footer */
+      footer {
+        background: #eee;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Section container styling */
+      section {
+        border-left: 4px solid #004080;
+        padding-left: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      /* Slight hover effect on links inside paragraphs if any */
+      p a {
+        color: #004080;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+      }
+      p a:hover {
+        color: #0066cc;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="index.html">Home</a>
+      <a href="movement_and_music.html">Movement And Music</a>
+      <a href="language_and_literacy.html">Language And Literacy</a>
+      <a href="science.html">Science</a>
+      <a href="engineering.html">Engineering</a>
+      <a href="technology.html">Technology</a>
+      <a href="mathematics.html">Mathematics</a>
+      <a href="humanities_and_social_science.html"
+        >Humanities And Social Science</a
+      >
+      <a href="references.html">References</a>
+    </header>
+
+    <div class="container">
+      <h1>Home Page</h1>
+
+      <section>
+        <p>
+          The key to creativity in early childhood education is imagination,
+          self-expression and problem-solving. It helps kids learn through
+          doing; they can act out their ideas, learn to think for themselves and
+          build confidence. In the curriculum, creativity enables children to
+          develop their imagination that cuts across the disciplines of art,
+          drama, music and physical activities. By incorporating creativity into
+          these aspects of teaching, educators can create spaces where children
+          flourish, express themselves, and connect to others. This method
+          allows children to explore their imagination openly, enabling them to
+          think outside the box.
+        </p>
+
+        <p>
+          Many theories support the belief that creativity is important and
+          crucial. Several social constructivism highlights the role of social
+          interaction in creative development (Hartmann, 2015). A child learns
+          and creates with the help of his peer group and teacher support. This
+          suggests using cultural tools that help to enhance the creative growth
+          of the children, for instance stories or drawing. In a similar vein,
+          other theory of multiple intelligences acknowledges other types of
+          strengths such as spatial intelligences in art or interpersonal
+          intelligence in dramatic play. This allows educators to tailor
+          activities for individual learning styles. According to several
+          constructivist perspective, children learnt through exploration and
+          play and, therefore, it is through play that this creative expression
+          emerges. All theories cited provide weighty scaffolding for the
+          understanding of raising creativity in the early years.
+        </p>
+
+        <p>
+          Early childhood teachers help build creativity by providing open-ended
+          materials and allowing children to explore without too many limits.
+          For example, giving children different materials like clay, paint and
+          things from your recycling bin lets them play freely (Akpan, 2020).
+          You may also let them role play wherever drama happens by providing
+          props and costumes. The teacher provides the tools and opportunity for
+          risk-taking and divergent thinking. You can ask open-ended questions,
+          celebrate different outcomes and use digital tools such as tablets or
+          video to help document and reflect on creativity. According to the
+          componential theory of creativity, domain-relevant skills, intrinsic
+          motivation, and environment must be combined to generate creativity.
+        </p>
+
+        <p>
+          This website talks about how creativity can be encouraged through art
+          and drama curriculum. The areas allow the child to express and develop
+          skills which are appropriate for different development stages. The
+          website provides customized learning experiences based on four age
+          groups of 0-2 years, 2-3 years, 3-5 years and 6-8 years age wise. The
+          content is developmentally appropriate and based on credible sources
+          and research. Infants might do some sensory art while older students
+          could do a play together. Evidence in the form of short videos
+          relating to the enactments is further proof of the children’s
+          creativity as well as a reflective one.
+        </p>
+
+        <p>
+          When you see references, it means that everything was evidence-based –
+          from the educational research and best practices. This method allows
+          educational theorists to fulfil their responsibilities while also
+          giving practitioners the chance to use. The website hopes to encourage
+          teachers to create imaginative lessons that are enriching and
+          transformative for young minds. In the end, the project promotes the
+          idea that creativity is not special, but necessary for learning in
+          early childhood and that children can start learning for life.
+        </p>
+      </section>
+
+      <!-- Art Section -->
+      <section>
+        <h2>Art’s Role in Stimulating Creativity</h2>
+        <p>
+          Art is an important part of early childhood education by making
+          creativity through self-expression and imagination possible. Through
+          this activity, kids can explore colors, shapes, and textures which
+          encourages creativity. Doing artwork activities help to develop fine
+          motor skills and emotional development. It gives a safe space to
+          express and work through feelings. Based on different stages of
+          artistic development, children go through phases in their creativity.
+          Hence, art is a vital tool for development. Art plays an important
+          role in upgrading the creativity in everyone’s life. Art should be key
+          in our creative curriculum, encouraging students to express their
+          individuality and culture (Omatseye, 2010).
+        </p>
+
+        <p>
+          <strong>Creativity Theories and Perspectives</strong><br />
+          It is believed that creativity comes through social interactions
+          (Lebuda, 2016) and the use of cultural tools, such as drawing and
+          painting. The multiple intelligences theory argue spatial intelligence
+          and bodily-kinesthetic intelligence play a vital role in art. It is
+          believed that children build knowledge through art. Perspectives
+          stress role of art in cognitive and emotional development and teachers
+          should provide scaffolding. When children are small, they begin
+          learning. This is when they learn to think differently. In this, they
+          learn to find many solutions to the problem. This is aligned with the
+          componential theory of creativity. This theory helps form domain
+          skills. It also incorporates intrinsic motivation.
+        </p>
+
+        <p>
+          <strong>Resources, Materials, and Digital Technologies</strong><br />
+          Children can be engaged with paint, clay, and recycled material by
+          teachers. Interactive drawing tablets and drawing apps are examples of
+          digital tools. Cameras can document children’s work, enhancing
+          reflection. It’s believed that the paper and crayons allow children to
+          create anything imaginative. Software used for digital storytelling
+          allows kids to make visuals. Under the guidance of your teachers,
+          these resources help make learning hands-on. Supplies should be
+          non-toxic and tools age-appropriate, helping to create an
+          all-inclusive environment. Moreover, Supplies should be safe and
+          non-toxic. Tools should be fit for the age of the child. Space should
+          be safe and inclusive so that any child can take part, explore and
+          express their creativity with confidence (Paçalı, 2017).
+        </p>
+
+        <p><strong>Learning Experiences</strong></p>
+        <ul>
+          <li>
+            <strong>0-2 Years</strong><br />
+            Finger Painting: Use edible paint and a tray to play with colors.
+            Foster creativity by letting infants smear freely.<br />
+            Texture Collage: Attachment of different fabric textures on a sheet
+            of paper, encouraging sensory play.
+          </li>
+          <li>
+            <strong>2-3 Years</strong><br />
+            Sponge Printing: Dip sponges in paint and create patterns
+            exploring.<br />
+            Nature Art: Use glue to put together leaves and twigs to help with a
+            good connection to nature.
+          </li>
+          <li>
+            <strong>3-5 Years</strong><br />
+            Collaborative Mural: Get them to paint a group mural.<br />
+            Sculpture Play: Mold play dough into shapes to explore 3D art.
+          </li>
+          <li>
+            <strong>6-8 Years</strong><br />
+            Sketchbook Journaling: Use drawings to reflect on your day.<br />
+            Mixed Media Art: Mixed media art is using paper and fabric, to
+            explore various techniques.
+          </li>
+        </ul>
+
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/gPlNkWnGcNI"
+            allowfullscreen
+            title="Art Creativity Video"
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- Drama and Puppetry Section -->
+      <section>
+        <h2>Drama and Puppetry</h2>
+        <p>
+          <strong
+            >Importance of Drama and Puppets in Facilitating Creativity</strong
+          ><br />
+          Drama and puppetry foster creativity through role-play and
+          storytelling, which is important for social and emotional development.
+          In imaginary play children narrate stories, develop empathy and solve
+          problems. From different play theories, it has been indicated that
+          engaging in pretend play improves children’s cognitive abilities
+          (Baker, 1996). Through puppets, shy children can express themselves
+          which builds confidence. Through these activities, teachers can
+          develop group dynamics that promote cultural awareness. With this in
+          mind consider drama and puppets as important features in a creative
+          curriculum.
+        </p>
+
+        <p>
+          <strong>Creativity Theories and Perspectives</strong><br />
+          According to different sociocultural theory, play encourages
+          creativity because it is done among peers. It is said that preschool
+          children use puppets to enact symbolic plays, though they don’t use
+          them for the same (Karaolis, 2023). The theory of investment by
+          different scholar explain how creativity can be demonstrated by buying
+          low and selling high. They highlight how drama helps develop divergent
+          thinking and problem-solving. Teachers can help students explore
+          different perspectives and create new things to improve their skills.
+        </p>
+
+        <p>
+          <strong>Resources, Materials, and Digital Technologies</strong><br />
+          How about puppets, costumes and basic props like scarves for drama?
+          Tools like video recording capture performances for reflection states
+          that storytelling kits with scripts support narrative skills. Tablets
+          with animation apps allow children to make their own puppet shows.
+          Teacher should ensure the materials are safe and strong and supervise
+          digital use. These resources enable constructive play supported
+          through recording evidence from the creative processes which enhances
+          the learning outcome across various ages (Sarma, 2013).
+        </p>
+
+        <p><strong>Learning Experiences</strong></p>
+        <ul>
+          <li>
+            <strong>0-2 Years</strong><br />
+            Puppet Peek-a-Boo: You can play interactively with a puppet,
+            fostering engagement.<br />
+            Mirror Play: Children will enact on a puppet in a mirror and act
+            like the puppets, encouraging imitation.
+          </li>
+          <li>
+            <strong>2-3 Years</strong><br />
+            Simple Role-Play: Just wear animal costumes to role-play and enhance
+            their imagination.<br />
+            Puppet Story: A puppet can be useful as you tell a short story and
+            enhance listening.
+          </li>
+          <li>
+            <strong>3-5 Years</strong><br />
+            Group Drama: Let’s enact a fairy tale as a group and foster
+            collaboration.<br />
+            Puppet Show: Encourage writing scripts for a short play.
+          </li>
+          <li>
+            <strong>6-8 Years</strong><br />
+            Improvised Scene: Develop a spontaneous story and promote
+            flexibility (Nyland, 2012).<br />
+            Puppet Debate - Employ puppets to conduct a mock debate. This
+            exercise develops skills of argumentation and critical thinking.
+          </li>
+        </ul>
+
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/gPlNkWnGcNI"
+            allowfullscreen
+            title="Drama and Puppetry Video"
+          ></iframe>
+        </div>
+      </section>
+
+      <!-- Critical Analysis Section -->
+      <section>
+        <h2>Critical Analysis</h2>
+        <p>
+          Colour Blocks for 0–2 years engaged children in stacking and colour
+          recognition. The addition of sound elements (tapping blocks together)
+          drew more interest, but some infants lost focus—introducing simple
+          songs about colours could help. Music Math for 3–5 years was an
+          exciting combination of rhythm and counting. Some struggled to keep
+          the beat while drawing; starting with simpler patterns would build
+          confidence. Both activities demonstrated the value of blending
+          disciplines, promoting both creative and analytical thinking.
+        </p>
+      </section>
+    </div>
+
+    <footer>Creativity in Curriculum Website</footer>
+  </body>
+</html>
