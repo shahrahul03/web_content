@@ -1,196 +1,407 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
     <style>
-      /* Base styles */
+      :root {
+        --brand: #004080;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffcc;
+        --border: #dfe7f3;
+        --radius: 16px;
+        --shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        font-family: Arial, sans-serif;
+        height: 100%;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
         margin: 0;
-        padding: 0;
-        background: #f9f9f9;
-        color: #222;
-        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
       }
       header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(8px);
+        background: #004080e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1100px;
+        margin: 0 auto;
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 0.6rem 0.8rem;
         flex-wrap: wrap;
       }
-      header a {
-        color: white;
+      .nav a {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
-        transition: background 0.3s ease;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .nav a:hover {
+        background: #ffffff29;
+        transform: translateY(-1px);
       }
       .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 2rem 1rem;
-        background: white;
-        box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
-        border-radius: 8px;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px 12px 32px;
       }
       h1,
       h2,
       h3 {
-        color: #004080;
-        margin-bottom: 1rem;
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeInUp 0.8s forwards;
+        color: var(--brand);
+        margin: 0 0 0.6rem;
+      }
+      h1 {
+        font-size: clamp(1.6rem, 2.2vw + 1rem, 2.1rem);
       }
       h2 {
-        margin-top: 2.5rem;
+        font-size: clamp(1.25rem, 1.1vw + 1rem, 1.5rem);
       }
       h3 {
-        margin-top: 1.5rem;
+        font-size: 1.1rem;
       }
       p,
       ul {
-        margin-bottom: 1.25rem;
-        opacity: 0;
-        animation: fadeIn 1.2s forwards;
+        text-align: justify;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 900px;
       }
-      ul {
-        margin-left: 1.5rem;
-      }
-      /* Animation delays for paragraphs to appear nicely */
-      section p:nth-child(odd),
-      section ul:nth-child(odd) {
-        animation-delay: 0.4s;
-      }
-      section p:nth-child(even),
-      section ul:nth-child(even) {
-        animation-delay: 0.6s;
-      }
-      /* Video embed */
-      .video-embed {
-        margin: 2rem 0 3rem 0;
-        opacity: 0;
-        animation: fadeIn 1.5s forwards;
-        animation-delay: 0.8s;
-      }
-      .video-embed iframe {
-        width: 100%;
-        height: 400px;
-        border: none;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgb(0 0 0 / 0.15);
-      }
-      /* Footer */
-      footer {
-        background: #eee;
-        text-align: center;
-        padding: 1rem;
-        margin-top: 2rem;
-        font-size: 0.9rem;
-        color: #555;
-      }
-
-      /* Animations */
       @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
         to {
           opacity: 1;
           transform: translateY(0);
         }
       }
       @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
         to {
           opacity: 1;
         }
       }
-
-      /* Section container styling */
-      section {
-        border-left: 4px solid #004080;
-        padding-left: 1rem;
-        margin-bottom: 3rem;
+      section.section-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 16px;
+        margin: 14px 0 18px;
+        overflow: hidden;
+        animation: fadeIn 0.6s ease both;
       }
-
-      /* Slight hover effect on links inside paragraphs if any */
-      p a {
-        color: #004080;
-        text-decoration: underline;
-        transition: color 0.3s ease;
-      }
-      p a:hover {
-        color: #0066cc;
-      }
-
-      /* Alternating layout for side by side content + images */
       .alt-row {
-        display: flex;
-        align-items: flex-start;
-        gap: 2rem;
-        margin-bottom: 3rem;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 20px;
+        align-items: start;
+        margin: 10px 0 14px;
       }
-      .alt-row.reverse {
-        flex-direction: row-reverse;
+      .section-card .alt-row:nth-of-type(even) .alt-text {
+        order: 2;
+      }
+      .section-card .alt-row:nth-of-type(even) .alt-media {
+        order: 1;
       }
       .alt-text,
-      .alt-image {
-        flex: 1 1 45%;
-        min-width: 280px;
+      .alt-media {
+        min-width: 0;
       }
-      .alt-text p {
-        font-size: 1.1rem;
-        line-height: 1.6;
-        color: #333;
+      .alt-text p,
+      .alt-text ul,
+      .alt-text h3 {
+        margin: 0 0 12px;
       }
-      .alt-image img {
+      .alt-text ul {
+        padding-left: 18px;
+      }
+      .alt-media img,
+      .alt-media iframe {
         width: 100%;
         height: auto;
-        border-radius: 8px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease;
+        display: block;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) - 2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
       }
-      .alt-image img:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+      .alt-media iframe {
+        aspect-ratio: 16/9;
       }
-
-      /* Responsive tweaks */
-      @media (max-width: 700px) {
-        .alt-row {
-          flex-direction: column !important;
+      .alt-media img {
+        object-fit: cover;
+        max-height: 280px;
+      }
+      .accent {
+        border-left: 4px solid var(--brand);
+        padding-left: 12px;
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.95rem;
+        padding: 20px 10px 36px;
+      }
+      @media (max-width: 980px) {
+        .container {
+          padding: 16px 10px 28px;
         }
-        .alt-text,
-        .alt-image {
-          flex: 1 1 100%;
+      }
+      @media (max-width: 860px) {
+        .alt-row {
+          grid-template-columns: 1fr;
+        }
+        .alt-media img {
+          max-height: 340px;
         }
       }
     </style>
   </head>
   <body>
+    <!-- ====== MENU START ====== -->
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <div class="container">
-      <!-- New Home Page section with side-by-side layout -->
-      <section>
+    <style>
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #0b4aa8e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+      }
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
+      }
+
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: #ffffffee;
+        color: #222;
+        border: 1px solid #e3ecfa;
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* Mobile Styles */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          min-width: 0;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+    </style>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: subsection toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
+    <!-- ====== MENU END ====== -->
+
+    <main class="container">
+      <!-- HOME SECTION (unchanged) -->
+      <section class="section-card">
         <div class="alt-row">
-          <div class="alt-text">
+          <div class="alt-text accent">
             <h1>Home Page</h1>
             <p>
               The key to creativity in early childhood education is imagination,
@@ -204,14 +415,14 @@
               connect to others. This method allows children to explore their
               imagination openly, enabling them to think outside the box.
             </p>
-            <div class="alt-image">
-              <img
-                src=" network-connection-graphic-overlay-background.jpg"
-                alt="Children drawing and creating art"
-                height="10"
-              />
-            </div>
+          </div>
+          <div class="alt-media">
+            <img src="img/img2.jpg" alt="Children drawing and creating art" />
+          </div>
+        </div>
 
+        <div class="alt-row">
+          <div class="alt-text accent">
             <p>
               Many theories support the belief that creativity is important and
               crucial. Several social constructivism highlights the role of
@@ -229,14 +440,14 @@
               emerges. All theories cited provide weighty scaffolding for the
               understanding of raising creativity in the early years.
             </p>
-            <!-- <div class="alt-image">
-              <img
-                src="nursery_teacher_2.jpg"
-                alt="Children drawing and creating art"
-                height="10"
-              />
-            </div> -->
+          </div>
+          <div class="alt-media">
+            <img src="img/img1.jpg" alt="Children drawing and creating art" />
+          </div>
+        </div>
 
+        <div class="alt-row">
+          <div class="alt-text accent">
             <p>
               Early childhood teachers help build creativity by providing
               open-ended materials and allowing children to explore without too
@@ -252,14 +463,14 @@
               motivation, and environment must be combined to generate
               creativity.
             </p>
-            <div class="alt-image">
-              <img
-                src="nursery_teacher_2.jpg"
-                alt="Children drawing and creating art"
-                height="10"
-              />
-            </div>
+          </div>
+          <div class="alt-media">
+            <img src="img/img8.jpg" alt="Children drawing and creating art" />
+          </div>
+        </div>
 
+        <div class="alt-row">
+          <div class="alt-text accent">
             <p>
               This website talks about how creativity can be encouraged through
               art and drama curriculum. The areas allow the child to express and
@@ -273,14 +484,14 @@
               further proof of the children’s creativity as well as a reflective
               one.
             </p>
-            <!-- <div class="alt-image">
-              <img
-                src="nursery_teacher_2.jpg"
-                alt="Children drawing and creating art"
-                height="10"
-              />
-            </div> -->
+          </div>
+          <div class="alt-media">
+            <img src="img/img10.jpg" alt="Children drawing and creating art" />
+          </div>
+        </div>
 
+        <div class="alt-row">
+          <div class="alt-text accent">
             <p>
               When you see references, it means that everything was
               evidence-based – from the educational research and best practices.
@@ -293,228 +504,12 @@
               children can start learning for life.
             </p>
           </div>
-          <!-- <div class="alt-image">
-            <img
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80"
-              alt="Children drawing and creating art"
-            />
-          </div> -->
-        </div>
-      </section>
-
-      <!-- Rest of your sections unchanged below -->
-
-      <!-- Art Section -->
-      <section>
-        <h2>Art’s Role in Stimulating Creativity</h2>
-        <p>
-          Art is an important part of early childhood education by making
-          creativity through self-expression and imagination possible. Through
-          this activity, kids can explore colors, shapes, and textures which
-          encourages creativity. Doing artwork activities help to develop fine
-          motor skills and emotional development. It gives a safe space to
-          express and work through feelings. Based on different stages of
-          artistic development, children go through phases in their creativity.
-          Hence, art is a vital tool for development. Art plays an important
-          role in upgrading the creativity in everyone’s life. Art should be key
-          in our creative curriculum, encouraging students to express their
-          individuality and culture (Omatseye, 2010).
-        </p>
-
-        <p>
-          <strong>Creativity Theories and Perspectives</strong><br />
-          It is believed that creativity comes through social interactions
-          (Lebuda, 2016) and the use of cultural tools, such as drawing and
-          painting. The multiple intelligences theory argue spatial intelligence
-          and bodily-kinesthetic intelligence play a vital role in art. It is
-          believed that children build knowledge through art. Perspectives
-          stress role of art in cognitive and emotional development and teachers
-          should provide scaffolding. When children are small, they begin
-          learning. This is when they learn to think differently. In this, they
-          learn to find many solutions to the problem. This is aligned with the
-          componential theory of creativity. This theory helps form domain
-          skills. It also incorporates intrinsic motivation.
-        </p>
-
-        <p>
-          <strong>Resources, Materials, and Digital Technologies</strong><br />
-          Children can be engaged with paint, clay, and recycled material by
-          teachers. Interactive drawing tablets and drawing apps are examples of
-          digital tools. Cameras can document children’s work, enhancing
-          reflection. It’s believed that the paper and crayons allow children to
-          create anything imaginative. Software used for digital storytelling
-          allows kids to make visuals. Under the guidance of your teachers,
-          these resources help make learning hands-on. Supplies should be
-          non-toxic and tools age-appropriate, helping to create an
-          all-inclusive environment. Moreover, Supplies should be safe and
-          non-toxic. Tools should be fit for the age of the child. Space should
-          be safe and inclusive so that any child can take part, explore and
-          express their creativity with confidence (Paçalı, 2017).
-        </p>
-
-        <p><strong>Learning Experiences</strong></p>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong><br />
-            Finger Painting: Use edible paint and a tray to play with colors.
-            Foster creativity by letting infants smear freely.<br />
-            Texture Collage: Attachment of different fabric textures on a sheet
-            of paper, encouraging sensory play.
-          </li>
-          <li>
-            <strong>2-3 Years</strong><br />
-            Sponge Printing: Dip sponges in paint and create patterns
-            exploring.<br />
-            Nature Art: Use glue to put together leaves and twigs to help with a
-            good connection to nature.
-          </li>
-          <li>
-            <strong>3-5 Years</strong><br />
-            Collaborative Mural: Get them to paint a group mural.<br />
-            Sculpture Play: Mold play dough into shapes to explore 3D art.
-          </li>
-          <li>
-            <strong>6-8 Years</strong><br />
-            Sketchbook Journaling: Use drawings to reflect on your day.<br />
-            Mixed Media Art: Mixed media art is using paper and fabric, to
-            explore various techniques.
-          </li>
-        </ul>
-
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/gPlNkWnGcNI"
-            allowfullscreen
-            title="Art Creativity Video"
-          ></iframe>
-        </div>
-      </section>
-
-      <!-- Drama and Puppetry Section -->
-      <section>
-        <h2>Drama and Puppetry</h2>
-        <p>
-          <strong
-            >Importance of Drama and Puppets in Facilitating Creativity</strong
-          ><br />
-          Drama and puppetry foster creativity through role-play and
-          storytelling, which is important for social and emotional development.
-          In imaginary play children narrate stories, develop empathy and solve
-          problems. From different play theories, it has been indicated that
-          engaging in pretend play improves children’s cognitive abilities
-          (Baker, 1996). Through puppets, shy children can express themselves
-          which builds confidence. Through these activities, teachers can
-          develop group dynamics that promote cultural awareness. With this in
-          mind consider drama and puppets as important features in a creative
-          curriculum.
-        </p>
-
-        <p>
-          <strong>Creativity Theories and Perspectives</strong><br />
-          According to different sociocultural theory, play encourages
-          creativity because it is done among peers. It is said that preschool
-          children use puppets to enact symbolic plays, though they don’t use
-          them for the same (Karaolis, 2023). The theory of investment by
-          different scholar explain how creativity can be demonstrated by buying
-          low and selling high. They highlight how drama helps develop divergent
-          thinking and problem-solving. Teachers can help students explore
-          different perspectives and create new things to improve their skills.
-        </p>
-
-        <p>
-          <strong>Resources, Materials, and Digital Technologies</strong><br />
-          How about puppets, costumes and basic props like scarves for drama?
-          Tools like video recording capture performances for reflection states
-          that storytelling kits with scripts support narrative skills. Tablets
-          with animation apps allow children to make their own puppet shows.
-          Teacher should ensure the materials are safe and strong and supervise
-          digital use. These resources enable constructive play supported
-          through recording evidence from the creative processes which enhances
-          the learning outcome across various ages (Sarma, 2013).
-        </p>
-
-        <p><strong>Learning Experiences</strong></p>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong><br />
-            Puppet Peek-a-Boo: You can play interactively with a puppet,
-            fostering engagement.<br />
-            Mirror Play: Children will enact on a puppet in a mirror and act
-            like the puppets, encouraging imitation.
-          </li>
-          <li>
-            <strong>2-3 Years</strong><br />
-            Simple Role-Play: Just wear animal costumes to role-play and enhance
-            their imagination.<br />
-            Puppet Story: A puppet can be useful as you tell a short story and
-            enhance listening.
-          </li>
-          <li>
-            <strong>3-5 Years</strong><br />
-            Group Drama: Let’s enact a fairy tale as a group and foster
-            collaboration.<br />
-            Puppet Show: Encourage writing scripts for a short play.
-          </li>
-          <li>
-            <strong>6-8 Years</strong><br />
-            Improvised Scene: Develop a spontaneous story and promote
-            flexibility (Nyland, 2012).<br />
-            Puppet Debate - Employ puppets to conduct a mock debate. This
-            exercise develops skills of argumentation and critical thinking.
-          </li>
-        </ul>
-
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/gPlNkWnGcNI"
-            allowfullscreen
-            title="Drama and Puppetry Video"
-          ></iframe>
-        </div>
-      </section>
-
-      <!-- Critical Analysis Section -->
-      <section>
-        <h2>Critical Analysis</h2>
-
-        <div class="alt-row">
-          <div class="alt-text">
-            <p>
-              Colour Blocks for 0–2 years engaged children in stacking and
-              colour recognition. The addition of sound elements (tapping blocks
-              together) drew more interest, but some infants lost
-              focus—introducing simple songs about colours could help.
-            </p>
-          </div>
-          <div class="alt-image">
-            <img
-              src="group-kids-friends-arm-around-sitting-together.jpg"
-              alt="Children drawing and creating art"
-              height="10"
-            />
-          </div>
-        </div>
-
-        <div class="alt-row reverse">
-          <div class="alt-text">
-            <p>
-              Music Math for 3–5 years was an exciting combination of rhythm and
-              counting. Some struggled to keep the beat while drawing; starting
-              with simpler patterns would build confidence. Both activities
-              demonstrated the value of blending disciplines, promoting both
-              creative and analytical thinking.
-            </p>
-          </div>
-          <div class="alt-image">
-            <img
-              src="10058503.jpg"
-              alt="Children drawing and creating art"
-              height="10"
-            />
+          <div class="alt-media">
+            <img src="img/img6.jpg" alt="Children drawing and creating art" />
           </div>
         </div>
       </section>
-    </div>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
   </body>

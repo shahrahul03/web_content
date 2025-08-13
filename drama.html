@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Drama & Puppetry – Creativity Curriculum</title>
+    <style>
+      :root {
+        --brand: #004080;
+        --brand-2: #0b6fcb;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffea;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 10px 30px rgba(0, 64, 128, 0.1);
+        --ring: 0 0 0 1px var(--border), 0 12px 30px rgba(0, 0, 0, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        margin: 0;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* ===== Header (same multi-level menu) ===== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #004080e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+      }
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
+      }
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* ===== Hero ===== */
+      .hero {
+        position: relative;
+        width: 100%;
+        min-height: 300px;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(
+            180deg,
+            rgba(0, 64, 128, 0.65),
+            rgba(0, 64, 128, 0.3)
+          ),
+          url("group-kids-friends-arm-around-sitting-together.jpg") center/cover
+            no-repeat;
+      }
+      .hero .hero-inner {
+        padding: 56px 16px;
+        max-width: 1100px;
+        width: 100%;
+      }
+      .hero h1 {
+        margin: 0 0 0.4rem;
+        font-size: clamp(1.8rem, 1.2rem + 2.2vw, 2.4rem);
+      }
+      .hero p {
+        margin: 0 auto;
+        max-width: 800px;
+        opacity: 0.95;
+      }
+
+      /* ===== Main container ===== */
+      .wrap {
+        max-width: 1200px;
+        margin: 18px auto;
+        padding: 0 14px;
+      }
+
+      /* ===== Cards (different look from Arts) ===== */
+      .card {
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--ring);
+        border: 1px solid var(--border);
+        margin: 18px 0;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--brand-2));
+      }
+      .card-body {
+        padding: 18px;
+      }
+
+      h2 {
+        color: var(--brand);
+        margin: 0.2rem 0 0.6rem;
+      }
+      h3 {
+        color: #0a3e7c;
+        margin: 0.2rem 0 0.4rem;
+      }
+      p,
+      ul {
+        margin: 0 0 1rem;
+        text-align: justify;
+      }
+
+      /* Alternating rows (different spacing & image frame) */
+      .row {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+      .row + .row {
+        margin-top: 16px;
+      }
+      .media {
+        border: 1px solid var(--border);
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+      }
+      .media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      .media .placeholder {
+        display: block;
+        aspect-ratio: 16/10;
+        background: #eef4ff;
+      }
+
+      /* Timeline for Learning Experiences */
+      .timeline {
+        position: relative;
+        padding-left: 22px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(var(--brand), var(--brand-2));
+        opacity: 0.35;
+      }
+      .t-item {
+        position: relative;
+        margin: 0 0 16px;
+      }
+      .t-item::before {
+        content: "";
+        position: absolute;
+        left: -2px;
+        top: 0.45rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+        box-shadow: 0 0 0 3px #fff, 0 0 0 5px #e6effb;
+      }
+      .t-item strong {
+        display: block;
+        color: #0b3f7d;
+        margin-bottom: 0.25rem;
+      }
+
+      footer {
+        background: #eee;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 24px;
+        color: var(--muted);
+      }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+      @media (max-width: 860px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== Header ===== -->
+    <header>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="resources.html">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Drama and Puppetry</h1>
+        <p>
+          Fostering imagination, empathy, collaboration, and confident
+          self-expression through role-play, storytelling, and puppet work.
+        </p>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <!-- Importance -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>
+                Importance of Drama and Puppets in Facilitating Creativity
+              </h2>
+              <p>
+                Drama and puppetry foster creativity through role-play and
+                storytelling, which is important for social and emotional
+                development. In imaginary play children narrate stories, develop
+                empathy and solve problems. From different play theories, it has
+                been indicated that engaging in pretend play improves children’s
+                cognitive abilities (Baker, 1996). Through puppets, shy children
+                can express themselves which builds confidence. Through these
+                activities, teachers can develop group dynamics that promote
+                cultural awareness. With this in mind consider drama and puppets
+                as important features in a creative curriculum.
+              </p>
+            </div>
+            <div class="media">
+              <img src="img/img11.jpg" alt="Puppetry and drama concept" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Theories -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="media">
+              <img src="img/img12.jpg" alt="Creative theories" />
+            </div>
+            <div>
+              <h2>Creativity Theories and Perspectives</h2>
+              <p>
+                According to different sociocultural theory, play encourages
+                creativity because it is done among peers. It is said that
+                preschool children use puppets to enact symbolic plays, though
+                they don’t use them for the same (Karaolis, 2023). The theory of
+                investment by different scholar explain how creativity can be
+                demonstrated by buying low and selling high. They highlight how
+                drama helps develop divergent thinking and problem-solving.
+                Teachers can help students explore different perspectives and
+                create new things to improve their skills.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Resources -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Resources, Materials, and Digital Technologies</h2>
+              <p>
+                How about puppets, costumes and basic props like scarves for
+                drama? Tools like video recording capture performances for
+                reflection states that storytelling kits with scripts support
+                narrative skills. Tablets with animation apps allow children to
+                make their own puppet shows. Teacher should ensure the materials
+                are safe and strong and supervise digital use. These resources
+                enable constructive play supported through recording evidence
+                from the creative processes which enhances the learning outcome
+                across various ages (Sarma, 2013).
+              </p>
+            </div>
+            <div class="media">
+              <img src="img/img13.jpg" alt="Drama resources" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Learning Experiences (timeline style) -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+
+          <div class="row">
+            <div class="media">
+              <img src="img/img5.jpg" alt="Learning timeline" />
+            </div>
+            <div>
+              <div class="timeline">
+                <div class="t-item">
+                  <strong>0–2 Years</strong>
+                  <p>
+                    Puppet Peek-a-Boo: You can play interactively with a puppet,
+                    fostering engagement.
+                  </p>
+                  <p>
+                    Mirror Play: Children will enact on a puppet in a mirror and
+                    act like the puppets, encouraging imitation.
+                  </p>
+                </div>
+
+                <div class="t-item">
+                  <strong>2–3 Years</strong>
+                  <p>
+                    Simple Role-Play: Just wear animal costumes to role-play and
+                    enhance their imagination.
+                  </p>
+                  <p>
+                    Puppet Story: A puppet can be useful as you tell a short
+                    story and enhance listening.
+                  </p>
+                </div>
+
+                <div class="t-item">
+                  <strong>3–5 Years</strong>
+                  <p>
+                    Group Drama: Let’s enact a fairy tale as a group and foster
+                    collaboration.
+                  </p>
+                  <p>
+                    Puppet Show: Encourage writing scripts for a short play.
+                  </p>
+                </div>
+
+                <div class="t-item">
+                  <strong>6–8 Years</strong>
+                  <p>
+                    Improvised Scene: Develop a spontaneous story and promote
+                    flexibility (Nyland, 2012).
+                  </p>
+                  <p>
+                    Puppet Debate: Employ puppets to conduct a mock debate. This
+                    exercise develops skills of argumentation and critical
+                    thinking.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Video Transcripts -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Video Transcripts</h2>
+              <h3>Puppet Peek-a-Boo with 0–2 Years</h3>
+              <p>
+                Hello everyone, it is me, Prajwal Karki, your little friend.
+                After this, we’re playing a puppet peek a boo. “Look at this
+                puppet…a fluffy bunny! Watch it hide... peek-a-boo! Listen to
+                its smooth voice. Now let us do it together hiding and peeking!
+                Try to move it high and then low you know it’s a puppet, the
+                more you play with it the more your imagination will grow. Very
+                nice my little actors, Let us now put the puppet to rest. Great
+                job today. See you next time, little friend!
+              </p>
+
+              <h3>Group Drama with 3–5 Years</h3>
+              <p>
+                Hello little actors, it is me, Prajwal Karki, Today, we’re doing
+                group drama with a fairy tale. "Check out my beautiful scarves!
+                They are magic capes. Why don’t we pretend we are rescuing
+                someone in our box castle. I’ll be the hero – now you add your
+                part!" Working together builds our story. Drama helps us imagine
+                and team up. Wow, what a fun tale we made! You all did an
+                excellent job. I can’t wait for your next adventure. Thank you
+                so much!
+              </p>
+            </div>
+            <div class="media">
+              <img src="img/img3.jpg" alt="Puppet performance" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Critical reflection -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="media">
+              <img src="img/img7.jpg" alt="Reflection & evaluation" />
+            </div>
+            <div>
+              <h2>Critical Reflection and Evaluation</h2>
+              <p>
+                The puppet peek-a-boo activity for 0-2 years age group and group
+                drama for 3-5 years age group resulted in significant creative
+                and social development. The interactive puppet play of
+                Peek-a-Boo, which made the infants giggle, was a big hit. Group
+                drama enhanced the ability of the child to collaborate with
+                their peers. An important success was the enthusiasm of the
+                children, and the puppets helped shy kids gain confidence. The
+                drama session had a lack of role clarity which resulted in
+                confusion and the peek-a-boo activity did not last long enough
+                for enough engagement. If I were to do it again, I would assign
+                some portions of the drama to enhance the structure. I would
+                also extend the peek-a-boo with more props to sustain the
+                interest. Footage of the sessions was very helpful as they
+                captured a lot of expressions and for us an indicator for using
+                it on a regular basis for feedback. To help better encourage
+                creativity, I would include an array of different puppets and a
+                variety of different stories. I should try to manage my pacing
+                better by being more intentional with my transitions, the
+                recordings showed. Making some changes will help people
+                understand their roles better and they will stay engaged for
+                longer. The activities did foster imagination and socialize the
+                children, however, including more precise roles and longer
+                playtime would be beneficial.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: submenu toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

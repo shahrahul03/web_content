@@ -1,204 +1,650 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Movement And Music</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Movement & Music – Creativity Curriculum</title>
     <style>
+      :root {
+        --brand: #0b6fcb;
+        --brand2: #7aa9ff;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 12px 28px rgba(11, 111, 203, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        font-family: Arial, sans-serif;
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+      }
+
+      /* =====================
+         FIXED MULTI-LEVEL MENU
+         ===================== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: linear-gradient(90deg, #004080, #0b6fcb);
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .menu {
+        list-style: none;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
-        color: #222;
-      }
-      header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
         display: flex;
-        gap: 1rem;
+        gap: 0.25rem 0.5rem;
         flex-wrap: wrap;
+        align-items: center;
       }
-      header a {
-        color: white;
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff29;
+        transform: translateY(-1px);
       }
-      .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 1rem;
-        background: white;
+
+      /* Dropdown panel */
+      .has-dropdown {
+        position: static;
       }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      /* open on hover (desktop) */
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* Mobile behavior */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        /* dropdown becomes inline on mobile; opens only via .open class */
+        .has-dropdown .dropdown {
+          position: static;
+          min-width: 0;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+
+      /* Hero */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        color: #0a2c5a;
+        background: radial-gradient(
+            1200px 300px at 50% -50%,
+            #dcebff,
+            transparent 70%
+          ),
+          linear-gradient(180deg, #eaf2ff, #ffffff);
+      }
+      .hero-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 36px 16px 24px;
+      }
+      .hero h1 {
+        margin: 0.2rem 0 0.6rem;
+        font-size: clamp(1.8rem, 1.1rem + 2.2vw, 2.4rem);
+        color: #004080;
+      }
+      .hero p {
+        margin: 0;
+        max-width: 900px;
+        text-align: justify;
+      }
+
+      /* Decorative music staff lines */
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 140px;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+            to bottom,
+            rgba(11, 111, 203, 0.18) 0 2px,
+            transparent 2px 22px
+          ),
+          linear-gradient(
+            90deg,
+            transparent 0 15%,
+            rgba(11, 111, 203, 0.06) 15% 16%,
+            transparent 16% 30%,
+            rgba(11, 111, 203, 0.06) 30% 31%,
+            transparent 31% 45%,
+            rgba(11, 111, 203, 0.06) 45% 46%,
+            transparent 46% 60%,
+            rgba(11, 111, 203, 0.06) 60% 61%,
+            transparent 61% 75%,
+            rgba(11, 111, 203, 0.06) 75% 76%,
+            transparent 76% 90%,
+            rgba(11, 111, 203, 0.06) 90% 91%,
+            transparent 91% 100%
+          );
+        opacity: 0.5;
+      }
+
+      /* Container */
+      .wrap {
+        max-width: 100%;
+        margin: 22px auto;
+        padding: 0 12px;
+      }
+
+      /* Cards */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin: 16px 0;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+      }
+      .card-body {
+        padding: 18px;
+      }
+
       h1,
       h2,
       h3 {
         color: #004080;
+        margin: 0 0 0.6rem;
       }
-      .video-embed {
-        margin: 1rem 0;
+      p,
+      ul {
+        text-align: justify;
+        margin: 0 0 1rem;
       }
-      .video-embed iframe {
+
+      /* Alternating rows with media frames */
+      .row {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .row + .row {
+        margin-top: 12px;
+      }
+
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      }
+      .media iframe {
         width: 100%;
-        height: 400px;
+        aspect-ratio: 16/9;
+        border: 0;
+        display: block;
       }
+      .media img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      /* Make some media slightly smaller than text column */
+      .media.is-small {
+        padding: 8px;
+      }
+      .media.is-small iframe,
+      .media.is-small img {
+        width: 92%;
+        margin: 6px auto;
+      }
+
+      /* Timeline for Learning Experiences */
+      .timeline {
+        position: relative;
+        padding-left: 22px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(var(--brand), var(--brand2));
+        opacity: 0.4;
+      }
+      .t {
+        position: relative;
+        margin: 0 0 16px;
+      }
+      .t::before {
+        content: "";
+        position: absolute;
+        left: -2px;
+        top: 0.45rem;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+        box-shadow: 0 0 0 3px #fff, 0 0 0 5px #e6effb;
+      }
+      .t strong {
+        display: block;
+        color: #0a3e7c;
+        margin-bottom: 0.25rem;
+      }
+
+      /* Videos grid */
+      .videos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .videos {
+          grid-template-columns: 1fr;
+        }
+      }
+
       footer {
         background: #eee;
         text-align: center;
         padding: 1rem;
-        margin-top: 2rem;
-      }
-      section {
-        margin-bottom: 2rem;
+        margin-top: 28px;
+        color: var(--muted);
       }
     </style>
   </head>
   <body>
+    <!-- MENU -->
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <div class="container">
-      <h1>Movement And Music</h1>
-
-      <section>
-        <h2>Importance</h2>
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Movement and Music</h1>
         <p>
-          Children will move to express themselves and add music at an early
-          age. Rhythm, movement and sound create a spark. Children’s brain is
-          stimulated to operate when they move around. When they move, they can
-          explore and express feelings. A comparative analysis of music and
-          other related arts in crystallization of sound. Using the tempo and
-          the coordination at a young age is essential activity of the child
-          development process which allows confidence boosting and
-          problem-solving. An inclusive classroom recognizes, values and
-          addresses all styles of learning. Children are encouraged to be
-          welcoming and aware of culture through song and dance of different
-          cultures. Children are encouraged to think innovatively by attending
-          these functions. In addition, the process helps to cultivate positive
-          thinking, discipline and creativity.
+          Rhythm, movement, and sound spark expression, coordination, and
+          creativity—supporting social-emotional growth and confidence from the
+          earliest years.
         </p>
-      </section>
+      </div>
+    </section>
 
-      <section>
-        <h2>Creativity Theories</h2>
-        <p>
-          Social play nurtures creativity, as children inherit musical rhythms
-          or moves from one another, inspiring fun ideas. As children grow, they
-          begin to shape their creative expressions through sound and movement
-          experiments. This approach enables movement and music of all kinds for
-          all children. Early education features improvisation and open-ended
-          activities for thinking. This approach supports individuals in their
-          creative development by fusing musical and movement experiences from
-          cultures.
-        </p>
-      </section>
-
-      <section>
-        <h2>Resources and Technologies</h2>
-        <p>
-          Teachers may use drumming instruments like drums and shakers, dancing
-          scarves, and safety mats. Storybooks with musical themes inspire
-          creative stories. Tablet apps like “Musical Me” and “Just Dance Kids”
-          give children a chance to play with sound or guided movement.
-          Interactive whiteboards show animated songs for group fun. Audio for
-          different styles of music introduce cultural variety. Costume and
-          props enrich the role-play experience. Video cameras allow children to
-          evaluate their performances. With the support of the teacher, they
-          offer hands-on exploration to tap the senses creatively using
-          technology.
-        </p>
-      </section>
-
-      <section>
-        <h2>Learning Experiences</h2>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong><br />
-            Rattle Dance: Give our soft baby rattlers to the infants to shake on
-            their chests while the teacher shakes their arms to a gentle lullaby
-            (Laudanska, 2022).<br />
-            Clap Along: Make some clapping noise and let the baby learn to
-            follow this (Nyland, 2012).
-          </li>
-
-          <li>
-            <strong>2-3 Years</strong><br />
-            Scarf Twirl: A game involving twirling scarves along to music and
-            inventing new moves.<br />
-            Drum Jam: With someone guiding you, use drums to play rhythm the way
-            you want (Nyland, 2012).
-          </li>
-
-          <li>
-            <strong>3-5 Years</strong><br />
-            Story Dance: Use music to create your own moves to a story (Nyland,
-            2012).<br />
-            Song Creation: Kids add their own words to a song (Nyland, 2012).
-          </li>
-
-          <li>
-            <strong>6-8 Years</strong><br />
-            Choreography Challenge: Kids move to the music and choreograph a
-            short dance.<br />
-            Music Video: Shoot a performance with your tablet and add some
-            touches.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Critical Reflection & Evaluation</h2>
-        <p>
-          The Rattle Dance for 0–2 years was a joyful sensory experience.
-          Infants responded well to the sound and gentle arm movements, and many
-          smiled or giggled when the tempo changed. However, some lost interest
-          quickly—adding more textured rattles or pairing them with colourful
-          scarves could extend engagement. The Story Dance for 3–5 years
-          encouraged expressive movement and creative storytelling. Children
-          showed enthusiasm in acting out the changing beats, but a few were shy
-          at first. Starting with a short warm-up dance might help them feel
-          more confident. Both activities successfully promoted rhythm,
-          coordination, and creativity, but clearer cues and varied props would
-          make them even more engaging.
-        </p>
-      </section>
-
-      <section>
-        <h2>Videos</h2>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/wZq08vG2z_I"
-            title="Movement and Music Video 1"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+    <main class="wrap">
+      <!-- Importance (image, slightly smaller) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Importance</h2>
+              <p>
+                Children will move to express themselves and add music at an
+                early age. Rhythm, movement and sound create a spark. Children’s
+                brain is stimulated to operate when they move around. When they
+                move, they can explore and express feelings. A comparative
+                analysis of music and other related arts in crystallization of
+                sound Using the tempo and the coordination at a young age is
+                essential activity of the child development process which allows
+                confidence boosting and problem-solving. An inclusive classroom
+                recognizes, values and addresses all styles of learning.
+                Children are encouraged to be welcoming and aware of culture
+                through song and dance of different cultures. Children are
+                encouraged to think innovatively by attending these functions.
+                In addition, the process helps to cultivate positive thinking,
+                discipline and creativity.
+              </p>
+            </div>
+            <div class="media is-small">
+              <img src="img/img10.jpg" alt="Movement, rhythm and sound" />
+            </div>
+          </div>
         </div>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/ni5M447q-kU"
-            title="Movement and Music Video 2"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+      </article>
+
+      <!-- Creativity Theories (video) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="media">
+              <iframe
+                src="https://www.youtube.com/embed/wZq08vG2z_I"
+                title="Movement & Music – Creativity Theories"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div>
+              <h2>Creativity Theories</h2>
+              <p>
+                Social play nurtures creativity, as children inherit musical
+                rhythms or moves from one another, inspiring fun ideas. As
+                children grow, they begin to shape their creative expressions
+                through sound and movement experiments. This approach enables
+                movement and music of all kinds for all children. Early
+                education features improvisation and open-ended activities for
+                thinking. This approach supports individuals in their creative
+                development by fusing musical and movement experiences from
+                cultures.
+              </p>
+            </div>
+          </div>
         </div>
-      </section>
-    </div>
+      </article>
+
+      <!-- Resources & Technologies (image, smaller) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Resources and Technologies</h2>
+              <p>
+                Teachers may use drumming instruments like drums and shakers,
+                dancing scarves, and safety mats. Storybooks with musical themes
+                inspire creative stories. Tablet apps like “Musical Me” and
+                “Just Dance Kids” give children a chance to play with sound or
+                guided movement. Interactive whiteboards show animated songs for
+                group fun. Audio for different styles of music introduce
+                cultural variety. Costume and props enrich the role-play
+                experience. Video cameras allow children to evaluate their
+                performances. With the support of the teacher, they offer
+                hands-on exploration to tap the senses creatively using
+                technology.
+              </p>
+            </div>
+            <div class="media is-small">
+              <img src="img/img9.jpg" alt="Instruments, apps and props" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Learning Experiences (timeline + video) -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+          <div class="row">
+            <div class="media">
+              <iframe
+                src="https://www.youtube.com/embed/ni5M447q-kU"
+                title="Learning Experiences – Movement & Music"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div>
+              <div class="timeline">
+                <div class="t">
+                  <strong>0-2 Years</strong>
+                  <p>
+                    Rattle Dance: Give our soft baby rattlers to the infants to
+                    shake on their chests while the teacher shakes their arms to
+                    a gentle lullaby (Laudanska, 2022).
+                  </p>
+                  <p>
+                    Clap Along: Make some clapping noise and let the baby learn
+                    to follow this (Nyland, 2012).
+                  </p>
+                </div>
+                <div class="t">
+                  <strong>2-3 Years</strong>
+                  <p>
+                    Scarf Twirl: A game involving twirling scarves along to
+                    music and inventing new moves.
+                  </p>
+                  <p>
+                    Drum Jam: With someone guiding you, use drums to play rhythm
+                    the way you want (Nyland, 2012).
+                  </p>
+                </div>
+                <div class="t">
+                  <strong>3-5 Years</strong>
+                  <p>
+                    Story Dance: Use music to create your own moves to a story
+                    (Nyland, 2012).
+                  </p>
+                  <p>
+                    Song Creation: Kids add their own words to a song (Nyland,
+                    2012).
+                  </p>
+                </div>
+                <div class="t">
+                  <strong>6-8 Years</strong>
+                  <p>
+                    Choreography Challenge: Kids move to the music and
+                    choreograph a short dance.
+                  </p>
+                  <p>
+                    Music Video: Shoot a performance with your tablet and add
+                    some touches.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Critical Reflection (image, smaller) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Critical Reflection & Evaluation</h2>
+              <p>
+                The Rattle Dance for 0–2 years was a joyful sensory experience.
+                Infants responded well to the sound and gentle arm movements,
+                and many smiled or giggled when the tempo changed. However, some
+                lost interest quickly—adding more textured rattles or pairing
+                them with colourful scarves could extend engagement. The Story
+                Dance for 3–5 years encouraged expressive movement and creative
+                storytelling. Children showed enthusiasm in acting out the
+                changing beats, but a few were shy at first. Starting with a
+                short warm-up dance might help them feel more confident. Both
+                activities successfully promoted rhythm, coordination, and
+                creativity, but clearer cues and varied props would make them
+                even more engaging.
+              </p>
+            </div>
+            <div class="media is-small">
+              <img src="img/img8.jpg" alt="Reflection and evaluation" />
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: open/close whole menu
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: open/close dropdown section
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
   </body>
 </html>

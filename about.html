@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us – Creativity Curriculum</title>
+    <style>
+      :root {
+        --brand: #004080;
+        --brand2: #0b6fcb;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 12px 28px rgba(0, 64, 128, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+      }
+
+      /* ===== Header / Menu (same system site-wide) ===== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: linear-gradient(90deg, #004080, #0b6fcb);
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+
+      .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+      }
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff29;
+        transform: translateY(-1px);
+      }
+
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          min-width: 0;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+
+      /* ===== Hero ===== */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        color: #0a2c5a;
+        background: radial-gradient(
+            1200px 300px at 50% -50%,
+            #dcebff,
+            transparent 70%
+          ),
+          linear-gradient(180deg, #eaf2ff, #ffffff);
+      }
+      .hero-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 16px 28px;
+      }
+      .hero h1 {
+        margin: 0.2rem 0 0.4rem;
+        font-size: clamp(1.9rem, 1.1rem + 2.3vw, 2.6rem);
+        color: #004080;
+      }
+      .hero p {
+        margin: 0;
+        max-width: 900px;
+        text-align: justify;
+      }
+      .hero-art {
+        margin-top: 18px;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+      .hero-art img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        max-height: 360px;
+      }
+
+      /* ===== Content wrapper ===== */
+      .wrap {
+        max-width: 1200px;
+        margin: 22px auto;
+        padding: 0 12px;
+      }
+
+      /* ===== Cards ===== */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin: 16px 0;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+      }
+      .card-body {
+        padding: 18px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #004080;
+        margin: 0 0 0.6rem;
+      }
+      p,
+      ul {
+        text-align: justify;
+        margin: 0 0 1rem;
+        max-width: 1000px;
+      }
+      ul {
+        padding-left: 18px;
+      }
+
+      /* Two-column rows */
+      .row {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .row + .row {
+        margin-top: 10px;
+      }
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      }
+      .media img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* Team grid */
+      .team {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .member {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        padding: 12px;
+        text-align: center;
+      }
+      .avatar {
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        margin: 6px auto 10px;
+        overflow: hidden;
+        border: 2px solid #e7eefb;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .member h4 {
+        margin: 0.2rem 0 0.2rem;
+        color: #0a3e7c;
+        font-size: 1rem;
+      }
+      .member p.role {
+        margin: 0 0 0.4rem;
+        color: #4f6277;
+        font-size: 0.92rem;
+      }
+      .member p.bio {
+        margin: 0;
+        font-size: 0.92rem;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Responsive tweaks */
+      @media (max-width: 1000px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .team {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 560px) {
+        .team {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      footer {
+        background: #eee;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 28px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== MENU ===== -->
+    <header>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" aria-current="page">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="index.html#drama-puppetry">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <a href="#">Resources and Technologies</a>
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>About Us</h1>
+        <p>
+          We design developmentally appropriate, research-informed learning
+          experiences that spark imagination across arts, drama, movement,
+          language, science, engineering, technology, and mathematics. Our
+          mission is simple: help every child flourish creatively.
+        </p>
+        <div class="hero-art">
+          <!-- Use any site image; this one already exists in your project -->
+          <img src="img/img1.jpg" alt="Creative learning collage" />
+        </div>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <!-- Mission & Vision -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Our Mission</h2>
+              <p>
+                To empower educators and families with practical, joyful
+                activities that nurture creativity, curiosity, empathy, and
+                problem-solving from birth through the early primary years.
+              </p>
+              <h3>Our Vision</h3>
+              <p>
+                A world where every classroom is a studio for ideas—where play,
+                inquiry, and arts-infused learning help children become
+                confident, collaborative, and inventive thinkers.
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="img/img2.jpg"
+                alt="Teacher facilitating creative play"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- What We Offer -->
+      <article class="card">
+        <div class="card-body">
+          <h2>What We Offer</h2>
+          <ul>
+            <li>
+              Clearly structured activities for ages 0–2, 2–3, 3–5, and 6–8 with
+              authentic classroom fit.
+            </li>
+            <li>
+              Cross-disciplinary projects (STEM/STEAM/STREAM/STEMIE) linking
+              arts and inquiry.
+            </li>
+            <li>
+              Inclusive adaptations, open-ended prompts, and reflective
+              assessment ideas.
+            </li>
+            <li>
+              Ready-to-use media (short videos, photo prompts) for modeling,
+              reflection, and evidence.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Our Approach -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Our Approach</h2>
+              <ul>
+                <li>
+                  <strong>Play & Inquiry:</strong> Children learn best by
+                  exploring, tinkering, and asking questions.
+                </li>
+                <li>
+                  <strong>Creativity Across Disciplines:</strong> Art, movement,
+                  language, science, and engineering feed each other.
+                </li>
+                <li>
+                  <strong>Multiple Pathways:</strong> Activities honor diverse
+                  interests, strengths, and cultural identities.
+                </li>
+                <li>
+                  <strong>Scaffolding:</strong> Open prompts, teacher modeling,
+                  and peer collaboration support deeper learning.
+                </li>
+                <li>
+                  <strong>Reflective Practice:</strong> Short videos and photos
+                  help make thinking visible.
+                </li>
+              </ul>
+            </div>
+            <div class="media">
+              <img src="img/img3.jpg" alt="Children collaborating" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Research Basis -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Grounded in Research</h2>
+          <p>
+            Our content reflects perspectives from social constructivism and
+            sociocultural theory (peer interaction, cultural tools), multiple
+            intelligences (diverse strengths), componential views of creativity
+            (skills, motivation, environment), and play-based learning research
+            (exploration and pretend play as engines of development). Full
+            source details appear in the site’s References page.
+          </p>
+        </div>
+      </article>
+
+      <!-- Team -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Our Team</h2>
+          <div class="team">
+            <div class="member">
+              <div class="avatar">
+                <img src="img/img4.jpg" alt="Team member" />
+              </div>
+              <h4>Prajwal Karki</h4>
+              <p class="role">Project Lead & Content</p>
+              <p class="bio">
+                Designs age-appropriate activities and video scripts; curates
+                cross-disciplinary links.
+              </p>
+            </div>
+            <div class="member">
+              <div class="avatar">
+                <img src="img/img5.jpg" alt="Team member" />
+              </div>
+              <h4>Curriculum Advisors</h4>
+              <p class="role">Early Years Specialists</p>
+              <p class="bio">
+                Advise on developmental fit, inclusion, and assessment for
+                learning.
+              </p>
+            </div>
+            <div class="member">
+              <div class="avatar">
+                <img src="img/img1.jpg" alt="Team member" />
+              </div>
+              <h4>Media & Tech</h4>
+              <p class="role">Production & Web</p>
+              <p class="bio">
+                Creates classroom-friendly visuals, clips, and site features.
+              </p>
+            </div>
+            <div class="member">
+              <div class="avatar">
+                <img src="img/img2.jpg" alt="Team member" />
+              </div>
+              <h4>Community Partners</h4>
+              <p class="role">Schools & Families</p>
+              <p class="bio">
+                Pilot activities, share feedback, and inspire new ideas.
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Contact -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Contact</h2>
+          <p><strong>Email:</strong> hello@creativity-curriculum.example</p>
+          <p>
+            <strong>Feedback:</strong> We love improving with your ideas! If you
+            try an activity, tell us what worked and what to tweak. Classroom
+            insights make this project better for everyone.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: open/close whole menu
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: open/close dropdown section
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

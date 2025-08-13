@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Art – Creativity Curriculum</title>
+    <style>
+      :root {
+        --brand: #004080;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffcc;
+        --border: #dfe7f3;
+        --radius: 16px;
+        --shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        margin: 0;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* Header (multi-level menu you already use) */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #004080e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+      }
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
+      }
+
+      /* Dropdown centered & clamped */
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* Container */
+      .container {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 20px;
+        background: var(--card);
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--brand);
+        margin: 0 0 0.6rem;
+      }
+      p,
+      ul {
+        margin: 0 0 1rem;
+        text-align: justify;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Cards + alternating rows */
+      section.section-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 16px;
+        margin: 14px 0 18px;
+        overflow: hidden;
+      }
+      .alt-row {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 20px;
+        align-items: start;
+        margin: 10px 0 14px;
+      }
+      .section-card .alt-row:nth-of-type(even) .alt-text {
+        order: 2;
+      }
+      .section-card .alt-row:nth-of-type(even) .alt-media {
+        order: 1;
+      }
+      .alt-text,
+      .alt-media {
+        min-width: 0;
+      }
+      .alt-text p,
+      .alt-text ul,
+      .alt-text h3 {
+        margin: 0 0 12px;
+      }
+      .alt-text ul {
+        padding-left: 18px;
+      }
+      .alt-media img,
+      .alt-media iframe {
+        width: 100%;
+        height: auto;
+        display: block;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) - 2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      }
+      .alt-media iframe {
+        aspect-ratio: 16/9;
+      }
+      .alt-media img {
+        object-fit: cover;
+        max-height: 280px;
+      }
+      .accent {
+        border-left: 4px solid var(--brand);
+        padding-left: 12px;
+      }
+
+      footer {
+        background: #eee;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 2rem;
+        color: var(--muted);
+      }
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          min-width: 0;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+      @media (max-width: 860px) {
+        .alt-row {
+          grid-template-columns: 1fr;
+        }
+        .alt-media img {
+          max-height: 340px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="resources.html">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <!-- Hero / Title -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-text accent">
+            <h1>Art</h1>
+            <h2>Art’s Role in Stimulating Creativity</h2>
+            <p>
+              Art is an important part of early childhood education by making
+              creativity through self-expression and imagination possible.
+              Through this activity, kids can explore colors, shapes, and
+              textures which encourages creativity. Doing artwork activities
+              help to develop fine motor skills and emotional development. It
+              gives a safe space to express and work through feelings. Based on
+              different stages of artistic development, children go through
+              phases in their creativity. Hence, art is a vital tool for
+              development. Art plays an important role in upgrading the
+              creativity in everyone’s life. Art should be key in our creative
+              curriculum, encouraging students to express their individuality
+              and culture (Omatseye, 2010).
+            </p>
+          </div>
+          <div class="alt-media">
+            <img src="img/img7.jpg" alt="Creative art concept" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Theories -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-media">
+            <img src="img/img8.jpg" alt="Creative learning" />
+          </div>
+          <div class="alt-text accent">
+            <h2>Creativity Theories and Perspectives</h2>
+            <p>
+              It is believed that, the creativity comes through social
+              interactions (Lebuda, 2016) and the use of cultural tools, such as
+              drawing and painting. The multiple intelligences theory argue
+              spatial intelligence and bodily-kinesthetic intelligence play a
+              vital role in art. It is believed that children build knowledge
+              through art. Perspectives stress role of art in cognitive and
+              emotional development and teachers should provide scaffolding.
+              When children are small, they begin learning. This is when they
+              learn to think differently. In this, they learn to find many
+              solutions to the problem. This is aligned with the componential
+              theory of creativity. This theory helps form domain skills. It
+              also incorporates intrinsic motivation.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resources -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-text accent">
+            <h2>Resources, Materials, and Digital Technologies</h2>
+            <p>
+              Children can be engaged with paint, clay, and recycled material by
+              teachers. Interactive drawing tablets and drawing apps are
+              examples of digital tools. Cameras can document children’s work,
+              enhancing reflection. It’s believed that the paper and crayons
+              allow children to create anything imaginative. Software used for
+              digital storytelling allows kids to make visuals. Under the
+              guidance of your teachers, these resources help make learning
+              hands-on. Supplies should be non-toxic and tools age-appropriate,
+              helping to create an all-inclusive environment. Moreover, Supplies
+              should be safe and non-toxic. Tools should be fit for the age of
+              the child. Space should be safe and inclusive so that any child
+              can take part, explore and express their creativity with
+              confidence (Paçalı, 2017).
+            </p>
+          </div>
+          <div class="alt-media">
+            <img src="img/img9.jpg" alt="Resources for art" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Learning Experiences -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-media">
+            <img src="img/img10.jpg" alt="Learning experiences" />
+          </div>
+          <div class="alt-text accent">
+            <h2>Learning Experiences</h2>
+            <ul>
+              <li>
+                <strong>0–2 Years</strong><br />
+                Finger Painting: Use edible paint and a tray to play with
+                colors. Foster creativity by letting infants smear freely.<br />
+                Texture Collage: Attachment of different fabric textures on a
+                sheet of paper, encouraging sensory play.
+              </li>
+              <li>
+                <strong>2–3 Years</strong><br />
+                Sponge Printing: Dip sponges in paint and create patterns
+                exploring.<br />
+                Nature Art: Use glue to put together leaves and twigs to help
+                with a good connection to nature.
+              </li>
+              <li>
+                <strong>3–5 Years</strong><br />
+                Collaborative Mural: Get them to paint a group mural.<br />
+                Sculpture Play: Mold play dough into shapes to explore 3D art.
+              </li>
+              <li>
+                <strong>6–8 Years</strong><br />
+                Sketchbook Journaling: Use drawings to reflect on your day.<br />
+                Mixed Media Art: Mixed media art is using paper and fabric, to
+                explore various techniques.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video transcripts -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-text accent">
+            <h2>Video transcripts</h2>
+            <h3>Finger Painting with 0–2 Years:</h3>
+            <p>
+              Hello everyone, it is me, Prajwal Karki, your little friend!
+              Today, we are having fun with finger painting. Check this out! We
+              have soft paints. Actual edible colour…red, blue, and yellow. Hear
+              that! Dip your fingers and smear. It makes a squishy sound. Can
+              you feel it? Now your turn. Ready? Spread it on the tray! Try
+              mixing colors slowly... Now spread it fast! Wonderful job. Let’s
+              move our hands up high and down low. Painting helps your hands and
+              minds grow strong. You’re doing so well, my little artists. Now,
+              let's wipe your hands. You did a great job. See you next time,
+              buddy! 3–5 years age group.
+            </p>
+
+            <h3>Collaborative Mural with 3–5 Years:</h3>
+            <p>
+              Hi little artists, it's me Prajwal Karki. Today we are going to do
+              a collaborative mural. Look here! We have big paper and colorful
+              paints. Let’s start with a tree—everyone add a leaf! Watch me
+              paint a branch! Now add your ideas like flower or bird, etc. Look!
+              By adding our those ideas, we’ll make a big picture. Working
+              together we can create a big picture. Don’t you think by using art
+              we can imagine and share our ideas? Wow! Check out our amazing
+              mural. You all did a great job teamwork. I can’t wait to see you
+              create more. Thank you so much, and see you next time!
+            </p>
+          </div>
+          <div class="alt-media">
+            <img src="img/img3.jpg" alt="Video transcript visuals" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Critical Reflection -->
+      <section class="section-card">
+        <div class="alt-row">
+          <div class="alt-media">
+            <img src="img/img1.jpg" alt="Reflection" />
+          </div>
+          <div class="alt-text accent">
+            <h2>Critical Reflection and Evaluation</h2>
+            <p>
+              There was a great deal of creativity involved in the
+              finger-painting activity for 0–2 age group and mural making
+              activity for 3–5. By engaging in finger painting, infants were
+              able to experience textures and colors, and their delight was
+              evident in their expressions. The cooperative mural promoted
+              teamwork when children exchanged ideas and painted together. The
+              time management was a problem – some of the kids finished early
+              and sat idle. The mural also lacked initial guidance, causing
+              overlapping. If this happens again, I’ll make it longer and offer
+              a simple structure to help the mural take shape so everyone can
+              contribute! When researchers used video recordings in their
+              intervention with classrooms, it clearly shows that children were
+              excited by it. Perhaps we could have more video recording
+              interventions in classrooms, it might give enhance use of
+              observation. I would provide different tools for painting like
+              sponges along with some colourful paints. Furthermore, I would
+              provide them with different themes for their murals. This approach
+              echoes the idea, who focused on scaffolding. These changes would
+              help growth in sensory exploration and collaborating skills.
+              Thinking back on the process, I realized the recordings gave a
+              strong sense that instructions were not clear enough. The
+              experiences have been successful in promoting creativity, but
+              better timing and guidance would enhance their effectiveness in
+              future implementations.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: submenu toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

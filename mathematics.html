@@ -1,162 +1,465 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Mathematics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mathematics and Numeracy</title>
     <style>
+      :root {
+        --brand: #0a3e7c;
+        --brand2: #2f82ff;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 12px 28px rgba(10, 62, 124, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+      }
       body {
+        margin: 0;
         font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      /* ===== MENU ===== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #0b4aa8e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
-        color: #222;
-      }
-      header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
         display: flex;
-        gap: 1rem;
+        gap: 0.25rem 0.5rem;
         flex-wrap: wrap;
+        align-items: center;
       }
-      header a {
-        color: white;
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
       }
-      .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 1rem;
-        background: white;
+      .has-dropdown {
+        position: static;
       }
-      h1 {
-        color: #004080;
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          display: none;
+          width: 100%;
+          grid-template-columns: 1fr;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        background: linear-gradient(180deg, #eaf2ff, #ffffff);
+        padding: 36px 16px;
+        text-align: center;
+      }
+      .hero h1 {
+        margin: 0.2rem 0;
+        font-size: clamp(1.8rem, 1.2rem + 2vw, 2.4rem);
+        color: var(--brand);
+      }
+
+      /* ===== CONTENT ===== */
+      .wrap {
+        width: 100%;
+        max-width: 1400px;
+        margin: 22px auto;
+        padding: 0 12px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      .card-body {
+        padding: 18px;
       }
       h2 {
-        color: #004080;
-        margin-top: 1.5rem;
+        color: var(--brand);
+        margin-top: 0;
       }
+      p,
+      ul {
+        text-align: justify;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: center;
+      }
+      .media img {
+        width: 90%;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+        margin: 14px auto;
+      }
+
       .video-embed {
-        margin: 1rem 0;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        margin-top: 16px;
+        background: #fff;
       }
       .video-embed iframe {
         width: 100%;
-        height: 400px;
-        border: none;
+        aspect-ratio: 16/9;
+        border: 0;
       }
+
       footer {
         background: #eee;
         text-align: center;
         padding: 1rem;
-        margin-top: 2rem;
+        margin-top: 28px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .media img {
+          width: 95%;
+          max-height: 320px;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- ====== MENU START ====== -->
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
+    <!-- ====== MENU END ====== -->
 
-    <div class="container">
+    <!-- HERO -->
+    <section class="hero">
       <h1>Mathematics and Numeracy</h1>
+    </section>
 
-      <h2>Importance</h2>
-      <p>
-        Mathematics and numeracy encourage creativity through problem-solving
-        and exploring patterns, structures and relationships. Activities like
-        counting and sorting encourage logical thinking, while things like
-        shaping encourage imaginative thinking. It promotes experimentation with
-        number and shapes in early childhood. This space allows different ways
-        of working, producing unique solutions to a math task. Kids create games
-        or designs which build their confidence. This preparation lays down a
-        foundation for analytical and creative skills for further education.
-      </p>
+    <main class="wrap">
+      <!-- Importance with image -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Importance</h2>
+              <p>
+                Mathematics and numeracy encourage creativity through
+                problem-solving and exploring patterns, structures and
+                relationships. Activities like counting and sorting encourage
+                logical thinking, while things like shaping encourage
+                imaginative thinking. It promotes experimentation with number
+                and shapes in early childhood. This space allows different ways
+                of working, producing unique solutions to a math task. Kids
+                create games or designs which build their confidence. This
+                preparation lays down a foundation for analytical and creative
+                skills for further education.
+              </p>
+            </div>
+            <div class="media">
+              <img
+                src="img/img13.jpg"
+                alt="Mathematics creativity illustration"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
 
-      <h2>Creativity Theories</h2>
-      <p>
-        Creativity in mathematics can grow by playing with other people’s
-        materials. Kids develop creativity through making counting games and
-        matching their age. It presents different methods children use to solve
-        mathematical problems. In early education, doing pattern making and
-        open-ended activities encourages divergent thinking. This approach
-        develops the learner’s creative growth and the logic involved in math.
-      </p>
+      <!-- Creativity Theories -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Creativity Theories</h2>
+          <p>
+            Creativity in mathematics can grow by playing with other people’s
+            materials. Kids develop creativity through making counting games and
+            matching their age. It presents different methods children use to
+            solve mathematical problems. In early education, doing pattern
+            making and open-ended activities encourages divergent thinking. This
+            approach develops the learner’s creative growth and the logic
+            involved in math.
+          </p>
+        </div>
+      </article>
 
-      <h2>Resources and Technologies</h2>
-      <p>
-        Using counting blocks, shape puzzles and number cards in school. Beads
-        and strings help create patterns. Tablets with apps like "Number Fun"
-        teach math games. Interactive whiteboards show counting songs. Audio of
-        number rhymes adds fun. Craft supplies like clay form shapes. Video
-        tools record math projects. With teacher support, they provide hands-on
-        ways to experience creativity through maths and tech.
-      </p>
+      <!-- Resources and Technologies -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Resources and Technologies</h2>
+          <p>
+            Using counting blocks, shape puzzles and number cards in school.
+            Beads and strings help create patterns. Tablets with apps like
+            "Number Fun" teach math games. Interactive whiteboards show counting
+            songs. Audio of number rhymes adds fun. Craft supplies like clay
+            form shapes. Video tools record math projects. With teacher support,
+            they provide hands-on ways to experience creativity through maths
+            and tech.
+          </p>
+        </div>
+      </article>
 
-      <h2>Learning Experiences</h2>
-      <ul>
-        <li>
-          <strong>0-2 Years:</strong><br />
-          Block Stack: Stack blocks and say each one out loud (Zhang, 2021).<br />
-          Shape Touch: With support, feel and name simple shapes (Zhang, 2021,
-          pp. 2,3).
-        </li>
+      <!-- Learning Experiences -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+          <ul>
+            <li>
+              <strong>0-2 Years:</strong><br />Block Stack: Stack blocks and say
+              each one out loud (Zhang, 2021).<br />Shape Touch: With support,
+              feel and name simple shapes (Zhang, 2021, pp. 2,3).
+            </li>
+            <li>
+              <strong>2-3 Years:</strong><br />Pattern Play: Take the colored
+              blocks and arrange them in a pattern (Kiewra, 2016).<br />Count
+              Toys: Number the toys while you put them away.
+            </li>
+            <li>
+              <strong>3-5 Years:</strong><br />Shape Art: Let kids make pictures
+              using shape blocks.<br />Number Game: Use the die and count the
+              spaces to move.
+            </li>
+            <li>
+              <strong>6-8 Years:</strong><br />Math Puzzle: Work out a number
+              puzzle (An, 2012).<br />Graph Fun: Create a graph of our favorite
+              colors (An, 2012, p. 53).
+            </li>
+          </ul>
+        </div>
+      </article>
 
-        <li>
-          <strong>2-3 Years:</strong><br />
-          Pattern Play: Take the colored blocks and arrange them in a pattern
-          (Kiewra, 2016).<br />
-          Count Toys: Number the toys while you put them away.
-        </li>
+      <!-- Critical Analysis with image -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Critical Analysis: Mathematics & Numeracy</h2>
+              <p>
+                Block Stack for 0–2 years encouraged counting and fine motor
+                skills, and many infants repeated the activity without
+                prompting. Some became distracted after the tower fell;
+                introducing soft music or a counting song could re-engage them.
+                Shape Art for 3–5 years allowed for creative exploration of
+                geometry. While most children embraced the challenge, a few had
+                difficulty placing smaller shapes—providing larger or
+                self-adhesive shapes could assist. Both activities blended
+                creativity with mathematical thinking, with opportunities for
+                more adaptive materials to support all learners.
+              </p>
+            </div>
+            <div class="media">
+              <img src="img/img12.jpg" alt="Children doing math activities" />
+            </div>
+          </div>
+        </div>
+      </article>
 
-        <li>
-          <strong>3-5 Years:</strong><br />
-          Shape Art: Let kids make pictures using shape blocks.<br />
-          Number Game: Use the die and count the spaces to move.
-        </li>
-
-        <li>
-          <strong>6-8 Years:</strong><br />
-          Math Puzzle: Work out a number puzzle (An, 2012).<br />
-          Graph Fun: Create a graph of our favorite colors (An, 2012, p. 53).
-        </li>
-      </ul>
-
-      <h2>Critical Analysis: Mathematics & Numeracy</h2>
-      <p>
-        Block Stack for 0–2 years encouraged counting and fine motor skills, and
-        many infants repeated the activity without prompting. Some became
-        distracted after the tower fell; introducing soft music or a counting
-        song could re-engage them. Shape Art for 3–5 years allowed for creative
-        exploration of geometry. While most children embraced the challenge, a
-        few had difficulty placing smaller shapes—providing larger or
-        self-adhesive shapes could assist. Both activities blended creativity
-        with mathematical thinking, with opportunities for more adaptive
-        materials to support all learners.
-      </p>
-
-      <div class="video-embed">
-        <iframe
-          src="https://www.youtube.com/embed/nbSVD6JV1JQ"
-          title="Mathematics Video"
-        ></iframe>
-      </div>
-    </div>
+      <!-- Video -->
+      <article class="card">
+        <div class="card-body">
+          <div class="video-embed">
+            <iframe
+              src="https://www.youtube.com/embed/nbSVD6JV1JQ"
+              title="Mathematics Video"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+      </article>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
   </body>
 </html>

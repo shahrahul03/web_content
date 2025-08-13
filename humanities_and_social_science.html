@@ -1,236 +1,558 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Humanities And Social Science</title>
     <style>
+      :root {
+        --brand: #0a3e7c;
+        --brand2: #2f82ff;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 12px 28px rgba(10, 62, 124, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
         font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* ===== MENU (same pattern as your other pages) ===== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #0b4aa8e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
-        color: #222;
-      }
-      header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
         display: flex;
-        gap: 1rem;
+        gap: 0.25rem 0.5rem;
         flex-wrap: wrap;
+        align-items: center;
       }
-      header a {
-        color: white;
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
       }
-      .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 1rem;
-        background: white;
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          display: none;
+          width: 100%;
+          grid-template-columns: 1fr;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        background: linear-gradient(180deg, #eaf2ff, #ffffff);
+        padding: 36px 16px;
+        text-align: center;
+      }
+      .hero h1 {
+        margin: 0.2rem 0;
+        font-size: clamp(1.8rem, 1.2rem + 2vw, 2.4rem);
+        color: var(--brand);
+      }
+
+      /* ===== CONTENT WRAPPER ===== */
+      .wrap {
+        width: 100%;
+        max-width: 1400px;
+        margin: 22px auto;
+        padding: 0 12px;
+      }
+
+      /* ===== CARDS ===== */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+      }
+      .card-body {
+        padding: 18px;
       }
       h1,
       h2,
       h3 {
-        color: #004080;
+        color: var(--brand);
+        margin: 0 0 0.6rem;
       }
+      p,
+      ul {
+        text-align: justify;
+        margin: 0 0 1rem;
+      }
+
+      /* Rows with optional media */
+      .row {
+        display: grid;
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: center;
+      }
+      .media img {
+        width: 90%;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+        margin: 14px auto;
+      }
+
+      /* Video frames */
       .video-embed {
-        margin: 1rem 0;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        background: #fff;
       }
       .video-embed iframe {
         width: 100%;
-        height: 400px;
+        aspect-ratio: 16/9;
+        border: 0;
       }
+
       footer {
         background: #eee;
         text-align: center;
         padding: 1rem;
-        margin-top: 2rem;
+        margin-top: 28px;
+        color: var(--muted);
       }
-      section {
-        margin-bottom: 2rem;
+
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .media img {
+          width: 95%;
+          max-height: 340px;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- ====== MENU START ====== -->
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
+    <!-- ====== MENU END ====== -->
 
-    <div class="container">
+    <!-- HERO -->
+    <section class="hero">
       <h1>Humanities And Social Science</h1>
+    </section>
 
-      <section>
-        <h2>Importance</h2>
-        <p>
-          Humanities and social sciences unleash children’s creativity through
-          community, cultural and historical exploration. Using imaginative play
-          builds empathy and creativity. In early childhood it generates
-          curiosity about the world and its perspectives. This area supports
-          unique expressions which can generate new ideas about society. When
-          kids make up their own community stories, it builds confidence within
-          them and helps to develop cultural sensitivity.
-        </p>
-      </section>
-
-      <section>
-        <h2>Creativity Theories</h2>
-        <p>
-          Creativity in the Humanities is developed through role-playing and
-          networking around the sharing of stories with peers. By imagining
-          scenes from history and matching it to their stages, kids develop
-          creative skills. This highlights unique ways children explore social
-          themes. In early learning, community maps and other open-ended
-          activities are relatively common. This method fosters creative
-          individuality through cultural social experimentation.
-        </p>
-      </section>
-
-      <section>
-        <h2>Resources and Technologies</h2>
-        <p>
-          Maps, costumes, and storybooks about cultures can be used by teachers.
-          Dolls and play sets inspire role-play. Applications such as “History
-          for Kids” are virtual tours. Interactive whiteboards show cultural
-          videos. Audio of traditional music adds depth. Craft supplies like
-          paper and markers create maps. Video tools record role-plays. With the
-          support of teachers, these give hands-on ways to create and innovate
-          through the humanities as well as technology.
-        </p>
-      </section>
-
-      <section>
-        <h2>Learning Experiences</h2>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong><br />
-            Family Play: Use dolls to imitate family routines (Luen, 2021, p.
-            4).<br />
-            Sound Story: Imitate the actions while you hear music (Luen, 2021,
-            p. 1).
-          </li>
-          <li>
-            <strong>2-3 Years</strong><br />
-            Dress Up: Add clothes for role play of a story (Luen, 2021, p.
-            4).<br />
-            Drawing A Map: Drawing a simple map of their room.
-          </li>
-          <li>
-            <strong>3-5 Years</strong><br />
-            Culture Day: Use props to act out a festival (Luen, 2021, p. 4).<br />
-            Story Map: Let's draw a map for a made-up story.
-          </li>
-          <li>
-            <strong>6-8 Years</strong><br />
-            History Play: Act out a historical event with different roles (Luen,
-            2021, p. 4).<br />
-            Community Plan: Draw the layout of a Model Town.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Integrated Curriculum (STEM, STEAM, STREAM & STEMIE)</h2>
-        <h3>Importance</h3>
-        <p>
-          Curriculums like STEM, STEAM, STREAM, STEMIE stimulate the creativity
-          of students by interjecting the elements of science, technology,
-          engineering, arts and mathematics into their daily lives. This
-          technique fosters creativity behind innovative projects. From an early
-          age onwards, it creates curiosity and collaboration across
-          disciplines, supports different talents, and aids in
-          confidence-building.
-        </p>
-
-        <h3>Creativity Theories</h3>
-        <p>
-          Creativity develops in integrated learning through collaboration on
-          projects. Children design art-tech hybrids that enhance their creative
-          skills according to their levels. Open-ended activities like building
-          art robots open up new perspectives of thinking. This supports
-          individual creativity through multiple disciplines.
-        </p>
-
-        <h3>Resources and Technologies</h3>
-        <p>
-          Teachers can use blocks, art supplies, and simple circuits. Tablets
-          with apps like “Tinkercad” and “Art for Kids” combine technology with
-          art. Interactive whiteboards show project ideas. Craft supplies like
-          clay and wires enhance builds. Robots like Bee-Bots add tech play.
-        </p>
-
-        <h3>Learning Experiences</h3>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong>: Color Blocks (Wright, 2012), Sound Stack
-            (Wallerstedt, 2012).
-          </li>
-          <li>
-            <strong>2-3 Years</strong>: Art Robot, Nature Art (Kiewra, 2016, p.
-            85).
-          </li>
-          <li>
-            <strong>3-5 Years</strong>: Mini Bridge (Kiewra, 2016, p. 84), Music
-            Math (An, 2012).
-          </li>
-          <li>
-            <strong>6-8 Years</strong>: Tech Art, Eco Model (Kiewra, 2016, p.
-            78).
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Critical Reflection: Humanities & Social Sciences</h2>
-        <p>
-          Family Play for 0–2 years nurtured empathy and imagination as children
-          fed and cared for dolls. Some engaged deeply, while others moved
-          quickly to different toys—rotating baby props like bottles, blankets,
-          and rattles could encourage sustained play. Culture Day for 3–5 years
-          generated excitement, especially with colourful scarves and pretend
-          parade activities. However, some focused more on the props than
-          cultural meaning; incorporating short cultural stories before the
-          activity could add depth. Both activities promoted social awareness
-          and creativity, with potential to strengthen cultural connections.
-        </p>
-      </section>
-
-      <section>
-        <h2>Videos</h2>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/2DahvQ798gc"
-            title="Humanities and Social Science Video 1"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+    <main class="wrap">
+      <!-- Importance (with image) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Importance</h2>
+              <p>
+                Humanities and social sciences unleash children’s creativity
+                through community, cultural and historical exploration. Using
+                imaginative play builds empathy and creativity. In early
+                childhood it generates curiosity about the world and its
+                perspectives. This area supports unique expressions which can
+                generate new ideas about society. When kids make up their own
+                community stories, it builds confidence within them and helps to
+                develop cultural sensitivity.
+              </p>
+            </div>
+            <div class="media">
+              <!-- Replace with your image path -->
+              <img
+                src="img/img12.jpg"
+                alt="Children exploring cultures and communities"
+              />
+            </div>
+          </div>
         </div>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/1RhcfSL0aCQ"
-            title="Humanities and Social Science Video 2"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+      </article>
+
+      <!-- Creativity Theories -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Creativity Theories</h2>
+          <p>
+            Creativity in the Humanities is developed through role-playing and
+            networking around the sharing of stories with peers. By imagining
+            scenes from history and matching it to their stages, kids develop
+            creative skills. This highlights unique ways children explore social
+            themes. In early learning, community maps and other open-ended
+            activities are relatively common. This method fosters creative
+            individuality through cultural social experimentation.
+          </p>
         </div>
-      </section>
-    </div>
+      </article>
+
+      <!-- Resources and Technologies -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Resources and Technologies</h2>
+          <p>
+            Maps, costumes, and storybooks about cultures can be used by
+            teachers. Dolls and play sets inspire role-play. Applications such
+            as “History for Kids” are virtual tours. Interactive whiteboards
+            show cultural videos. Audio of traditional music adds depth. Craft
+            supplies like paper and markers create maps. Video tools record
+            role-plays. With the support of teachers, these give hands-on ways
+            to create and innovate through the humanities as well as technology.
+          </p>
+        </div>
+      </article>
+
+      <!-- Learning Experiences -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+          <ul>
+            <li>
+              <strong>0-2 Years</strong><br />Family Play: Use dolls to imitate
+              family routines (Luen, 2021, p. 4).<br />Sound Story: Imitate the
+              actions while you hear music (Luen, 2021, p. 1).
+            </li>
+            <li>
+              <strong>2-3 Years</strong><br />Dress Up: Add clothes for role
+              play of a story (Luen, 2021, p. 4).<br />Drawing A Map: Drawing a
+              simple map of their room.
+            </li>
+            <li>
+              <strong>3-5 Years</strong><br />Culture Day: Use props to act out
+              a festival (Luen, 2021, p. 4).<br />Story Map: Let's draw a map
+              for a made-up story.
+            </li>
+            <li>
+              <strong>6-8 Years</strong><br />History Play: Act out a historical
+              event with different roles (Luen, 2021, p. 4).<br />Community
+              Plan: Draw the layout of a Model Town.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Integrated Curriculum (kept exactly as you wrote) -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Integrated Curriculum (STEM, STEAM, STREAM & STEMIE)</h2>
+          <h3>Importance</h3>
+          <p>
+            Curriculums like STEM, STEAM, STREAM, STEMIE stimulate the
+            creativity of students by interjecting the elements of science,
+            technology, engineering, arts and mathematics into their daily
+            lives. This technique fosters creativity behind innovative projects.
+            From an early age onwards, it creates curiosity and collaboration
+            across disciplines, supports different talents, and aids in
+            confidence-building.
+          </p>
+
+          <h3>Creativity Theories</h3>
+          <p>
+            Creativity develops in integrated learning through collaboration on
+            projects. Children design art-tech hybrids that enhance their
+            creative skills according to their levels. Open-ended activities
+            like building art robots open up new perspectives of thinking. This
+            supports individual creativity through multiple disciplines.
+          </p>
+
+          <h3>Resources and Technologies</h3>
+          <p>
+            Teachers can use blocks, art supplies, and simple circuits. Tablets
+            with apps like “Tinkercad” and “Art for Kids” combine technology
+            with art. Interactive whiteboards show project ideas. Craft supplies
+            like clay and wires enhance builds. Robots like Bee-Bots add tech
+            play.
+          </p>
+
+          <h3>Learning Experiences</h3>
+          <ul>
+            <li>
+              <strong>0-2 Years</strong>: Color Blocks (Wright, 2012), Sound
+              Stack (Wallerstedt, 2012).
+            </li>
+            <li>
+              <strong>2-3 Years</strong>: Art Robot, Nature Art (Kiewra, 2016,
+              p. 85).
+            </li>
+            <li>
+              <strong>3-5 Years</strong>: Mini Bridge (Kiewra, 2016, p. 84),
+              Music Math (An, 2012).
+            </li>
+            <li>
+              <strong>6-8 Years</strong>: Tech Art, Eco Model (Kiewra, 2016, p.
+              78).
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Critical Reflection (with image) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Critical Reflection: Humanities & Social Sciences</h2>
+              <p>
+                Family Play for 0–2 years nurtured empathy and imagination as
+                children fed and cared for dolls. Some engaged deeply, while
+                others moved quickly to different toys—rotating baby props like
+                bottles, blankets, and rattles could encourage sustained play.
+                Culture Day for 3–5 years generated excitement, especially with
+                colourful scarves and pretend parade activities. However, some
+                focused more on the props than cultural meaning; incorporating
+                short cultural stories before the activity could add depth. Both
+                activities promoted social awareness and creativity, with
+                potential to strengthen cultural connections.
+              </p>
+            </div>
+            <div class="media">
+              <!-- Replace with your image path -->
+              <img
+                src="img/img4.jpg"
+                alt="Children role-playing cultural stories"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Videos -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Videos</h2>
+          <div class="row">
+            <div class="video-embed">
+              <iframe
+                src="https://www.youtube.com/embed/2DahvQ798gc"
+                title="Humanities and Social Science Video 1"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="video-embed">
+              <iframe
+                src="https://www.youtube.com/embed/1RhcfSL0aCQ"
+                title="Humanities and Social Science Video 2"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: subsection toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
   </body>
 </html>

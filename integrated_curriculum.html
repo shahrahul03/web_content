@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integrated Curriculum (STEM, STEAM, STREAM & STEMIE)</title>
+    <style>
+      :root {
+        --brand: #0b4aa8;
+        --brand2: #69a3ff;
+        --bg: #f6f9ff;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #e3ecfa;
+        --radius: 18px;
+        --shadow: 0 10px 26px rgba(11, 74, 168, 0.1);
+        --accent: #eaf2ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* Header (multi-level menu) */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #0b4aa8e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 0.25rem 0.5rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
+      }
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
+      }
+
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* Hero (mesh gradient & subtle grid) */
+      .hero {
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid var(--border);
+        background: radial-gradient(
+            60% 100% at 110% -10%,
+            #dff0ff 0%,
+            transparent 70%
+          ),
+          radial-gradient(70% 120% at -10% -20%, #eaf2ff 0%, transparent 70%),
+          linear-gradient(180deg, #f1f6ff, #ffffff);
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: linear-gradient(
+            0deg,
+            transparent 24%,
+            rgba(11, 74, 168, 0.05) 25%,
+            rgba(11, 74, 168, 0.05) 26%,
+            transparent 27%
+          ),
+          linear-gradient(
+            90deg,
+            transparent 24%,
+            rgba(11, 74, 168, 0.05) 25%,
+            rgba(11, 74, 168, 0.05) 26%,
+            transparent 27%
+          );
+        background-size: 50px 50px;
+        opacity: 0.35;
+        pointer-events: none;
+      }
+      .hero-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 36px 16px 22px;
+        position: relative;
+      }
+      .hero h1 {
+        margin: 0.2rem 0 0.4rem;
+        color: #062e74;
+        font-size: clamp(1.8rem, 1.2rem + 2.2vw, 2.4rem);
+      }
+      .hero p {
+        margin: 0;
+        max-width: 900px;
+        color: #21477d;
+        text-align: justify;
+      }
+
+      /* Container */
+      .wrap {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 0 12px;
+      }
+
+      /* Section cards (left accent style) */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin: 16px 0;
+        display: block;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 12px 16px;
+        background: var(--accent);
+        border-bottom: 1px solid var(--border);
+      }
+      .badge {
+        display: inline-block;
+        min-width: 28px;
+        padding: 0.2rem 0.55rem;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+        color: #fff;
+        font-size: 0.82rem;
+        font-weight: 700;
+        box-shadow: 0 4px 10px rgba(11, 74, 168, 0.18);
+      }
+      .card-body {
+        padding: 16px;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #0b4aa8;
+        margin: 0 0 0.6rem;
+      }
+      p,
+      ul {
+        margin: 0 0 1rem;
+        text-align: justify;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Alternating rows with media */
+      .row {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .card .row + .row {
+        margin-top: 10px;
+      }
+      .card .row:nth-of-type(even) .text {
+        order: 2;
+      }
+      .card .row:nth-of-type(even) .media {
+        order: 1;
+      }
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+      }
+      .media iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border: 0;
+        display: block;
+      }
+      .media img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        max-height: 260px;
+      }
+
+      footer {
+        background: #eee;
+        text-align: center;
+        padding: 1rem;
+        margin-top: 28px;
+        color: var(--muted);
+      }
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          min-width: 0;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          left: auto;
+          width: 100%;
+          max-width: none;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .media img {
+          max-height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Integrated Curriculum (STEM, STEAM, STREAM & STEMIE)</h1>
+        <p>
+          Interweaving science, technology, engineering, arts, and mathematics
+          nurtures curiosity, collaboration, and creative problem-solving from
+          the earliest years.
+        </p>
+      </div>
+    </section>
+
+    <main class="wrap">
+      <!-- Importance -->
+      <article class="card">
+        <div class="card-head">
+          <span class="badge">1</span>
+          <h2>Importance</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="text">
+              <p>
+                Curriculums like STEM, STEAM, STREAM, STEMIE, etc. stimulate the
+                creativity of students by interjecting the elements of science,
+                technology, engineering, arts and mathematics into their daily
+                lives. This technique fosters the creativity behind innovative
+                crafted projects. From an early age onwards, it creates
+                curiosity and collaboration across disciplines. It supports
+                different kinds of talent, with unique solutions and artistic
+                expression. It aids in confidence-building as the kids create
+                designs which are intergrated designs, laying the foundation for
+                interdisciplinary and creative thinking in the future.
+              </p>
+            </div>
+            <div class="media">
+              <img src="img/img4.jpg" alt="Integrated learning visual" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Creativity Theories (with video in the middle of the page) -->
+      <article class="card">
+        <div class="card-head">
+          <span class="badge">2</span>
+          <h2>Creativity Theories</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="text">
+              <p>
+                Creativity develops in integrated learning through collaboration
+                on projects. Children design art-tech hybrids that enhance their
+                creative skills according to their levels. Creative Ways
+                Children Combine Subjects in Uniquely Fun Ways Open-ended
+                activities like building art robots open up new perspectives of
+                thinking. Support students’ individual creativity through
+                multiple disciplines and support their creativity.
+              </p>
+            </div>
+            <div class="media">
+              <iframe
+                src="https://www.youtube.com/embed/gPlNkWnGcNI"
+                title="Integrated Curriculum Video"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Resources & Technologies -->
+      <article class="card">
+        <div class="card-head">
+          <span class="badge">3</span>
+          <h2>Resources and Technologies</h2>
+        </div>
+        <div class="card-body">
+          <p>
+            Teachers can use blocks, art supplies, and simple circuits. Tablets
+            that have apps like “Tinker cad” and “Art for Kids” combine
+            technology with art. Interactive whiteboards show project ideas.
+            Audio of nature sounds inspires designs. Craft supplies like clay
+            and wires enhance builds. Video tools record projects. Robots like
+            Bee-Bots add tech play. With the support of teachers, these offer
+            one-of-a-kind hands-on experiences to unleash creativity through
+            integrated learning and technology.
+          </p>
+        </div>
+      </article>
+
+      <!-- Learning Experiences -->
+      <article class="card">
+        <div class="card-head">
+          <span class="badge">4</span>
+          <h2>Learning Experiences</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="text">
+              <ul>
+                <li>
+                  <strong>0-2 Years.</strong><br />Color Blocks: Use colored
+                  paper to stack blocks (Wright, 2012).<br />Sound Stack: Tap
+                  the blocks to make sounds using the Sound stack (Wallerstedt,
+                  2012).
+                </li>
+                <li>
+                  <strong>2-3 Years.</strong><br />Art Robot: Give a toy robot
+                  the perfect touch-up with stickers.<br />Nature Art: Create a
+                  picture using leaves (Kiewra, 2016, p. 85).
+                </li>
+                <li>
+                  <strong>3-5 Years.</strong><br />Mini Bridge: Build a bridge,
+                  painting it later (Kiewra, 2016, p. 84).<br />Music Math:
+                  Count beats as you draw rhythms (An, 2012).
+                </li>
+                <li>
+                  <strong>6-8 Years.</strong><br />Tech Art: Design a drawing
+                  using a tablet for Tech Art.<br />Eco Model: Using waste make
+                  green city model (Kiewra, 2016, p. 78).
+                </li>
+              </ul>
+            </div>
+            <div class="media">
+              <img src="img/img3.jpg" alt="Hands-on projects" />
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- critical analysis -->
+      <article class="card">
+        <div class="card-head">
+          <span class="badge">5</span>
+          <h2>critical analysis Integrated Curriculum</h2>
+        </div>
+        <div class="card-body">
+          <p>
+            Colour Blocks for 0–2 years engaged children in stacking and colour
+            recognition. The addition of sound elements (tapping blocks
+            together) drew more interest, but some infants lost
+            focus—introducing simple songs about colours could help. Music Math
+            for 3–5 years was an exciting combination of rhythm and counting.
+            Some struggled to keep the beat while drawing; starting with simpler
+            patterns would build confidence. Both activities demonstrated the
+            value of blending disciplines, promoting both creative and
+            analytical thinking.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: subsection toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,188 +1,503 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Language And Literacy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Language & Literacy – Creativity Curriculum</title>
     <style>
+      :root {
+        --brand: #004080;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffcc;
+        --border: #dfe7f3;
+        --radius: 16px;
+        --shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+        --accent1: #4f8fff;
+        --accent2: #a4c6ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
-        font-family: Arial, sans-serif;
+        height: 100%;
+      }
+      body {
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          "Helvetica Neue", Arial, "Noto Sans";
+        margin: 0;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.65;
+        overflow-x: hidden;
+      }
+
+      /* Header (multi-level menu) */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #004080e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
-        color: #222;
-      }
-      header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
         display: flex;
-        gap: 1rem;
+        gap: 0.25rem 0.5rem;
         flex-wrap: wrap;
+        align-items: center;
       }
-      header a {
-        color: white;
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
       }
+
+      .has-dropdown {
+        position: static;
+      }
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
+      }
+      .has-dropdown:hover .dropdown {
+        display: grid;
+      }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+
+      /* Hero */
+      .hero {
+        background: radial-gradient(
+            1200px 300px at 50% -60%,
+            #e6efff,
+            transparent 70%
+          ),
+          linear-gradient(180deg, #f0f6ff, #ffffff);
+        border-bottom: 1px solid var(--border);
+      }
+      .hero-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 14px 18px;
+      }
+      .hero h1 {
+        color: var(--brand);
+        margin: 0;
+        font-size: clamp(1.6rem, 1rem + 2.2vw, 2.2rem);
+      }
+
+      /* Container & Cards */
       .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 1rem;
-        background: white;
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 12px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin: 14px 0;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      }
+      .card-body {
+        padding: 16px;
       }
       h1,
       h2,
       h3 {
-        color: #004080;
+        color: var(--brand);
+        margin: 0 0 0.6rem;
       }
-      .video-embed {
-        margin: 1rem 0;
+      p,
+      ul {
+        margin: 0 0 1rem;
+        text-align: justify;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
       }
-      .video-embed iframe {
+
+      /* Alternating layout */
+      .alt-row {
+        display: grid;
+        grid-template-columns: 1.15fr 1fr;
+        gap: 20px;
+        align-items: start;
+        margin: 8px 0 10px;
+      }
+      .card .alt-row:nth-of-type(even) .alt-text {
+        order: 2;
+      }
+      .card .alt-row:nth-of-type(even) .alt-media {
+        order: 1;
+      }
+      .alt-text,
+      .alt-media {
+        min-width: 0;
+      }
+      .alt-media img,
+      .alt-media iframe {
         width: 100%;
-        height: 400px;
+        height: auto;
+        display: block;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
       }
+      .alt-media iframe {
+        aspect-ratio: 16/9;
+      }
+      .alt-media img {
+        object-fit: cover;
+        max-height: 260px;
+      }
+
       footer {
         background: #eee;
         text-align: center;
         padding: 1rem;
         margin-top: 2rem;
+        color: var(--muted);
       }
-      section {
-        margin-bottom: 2rem;
+
+      /* Responsive */
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          display: none;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+          width: 100%;
+          grid-template-columns: 1fr;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+      @media (max-width: 860px) {
+        .alt-row {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
 
-    <div class="container">
-      <h1>Language And Literacy</h1>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1>Language And Literacy</h1>
+      </div>
+    </section>
 
-      <section>
-        <h2>Importance</h2>
-        <p>
-          Language and literacy enhance creativity as they help children express
-          their ideas through words, stories, and imagination. The essential
-          skills of communication are constructed through speaking and listening
-          while reading and writing engender original writing. Early childhood
-          use of these skills boosts perspective taking and helps with problem
-          solving. An area that welcomes a multitude of voices, cultures, and
-          stories. It builds a foundation for self-expression, which offers
-          children the chance to create their own stories or poems and helps to
-          develop the confidence and critical thinking necessary for lifelong
-          learning.
-        </p>
-      </section>
-
-      <section>
-        <h2>Creativity Theories</h2>
-        <p>
-          With help of storytelling, children learn from one another and create
-          their own stories. Playing with words and sounds helps kids build
-          creative skills and improves with the kids. It indicates the unique
-          ways children express ideas through language. Open-ended activities
-          (e.g. improvising a story) encourage different ways of thinking. This
-          method encourages each child's creativity, helping them draw on local
-          culture to explore language.
-        </p>
-      </section>
-
-      <section>
-        <h2>Resources and Technologies</h2>
-        <p>
-          Teachers may use picture books, puppets, and writing tools like
-          crayons. Word games and rhyming cards spark imagination. Digital
-          storytelling is possible on tablets with apps such as “Story Creator”
-          or “Read with Me”. Interactive whiteboards display word games for
-          group play. Audio recordings of poems introduce diverse languages.
-          Craft supplies like paper and markers help writing or drawing story.
-          Video tools let kids record their tales. With guidance from the
-          teacher, these are hands-on ways of exploring creativity with language
-          and technology.
-        </p>
-      </section>
-
-      <section>
-        <h2>Learning Experiences</h2>
-        <ul>
-          <li>
-            <strong>0-2 Years</strong><br />
-            Sing a Story: Singing simple songs and adding actions, and getting
-            your baby to join in.<br />
-            Picture Talk: Show pictures from a book and let infants babble or
-            point (Stadler, 2005).
-          </li>
-
-          <li>
-            <strong>2-3 Years</strong><br />
-            Puppet Play: Use puppets to perform a short story where kids will
-            add the lines.<br />
-            Rhyme Time: Clap along to the rhymes; get kids to make up new words
-            (Nyland, 2012).
-          </li>
-
-          <li>
-            <strong>3-5 Years</strong><br />
-            Story Chain: You start a story and let the children keep adding
-            (Stadler, 2005).<br />
-            Draw and Tell: Make a picture and tell a story about the picture you
-            made (Stadler, 2005).
-          </li>
-
-          <li>
-            <strong>6-8 Years</strong><br />
-            Poetry Jam: Write a short poem together sharing ideas.<br />
-            Digital Tale: Send a text to an online chat to a digital device.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <h2>Critical Analysis</h2>
-        <p>
-          The Sing a Story activity for 0–2 years effectively paired rhythm,
-          words, and actions, helping infants link language with movement. Some
-          children were more focused on the actions than the singing, so slowing
-          the pace and repeating sections might improve participation. The Story
-          Chain with 3–5 years sparked imagination and collaboration, with
-          children eagerly adding to the tale. A few struggled to think of ideas
-          quickly—using visual prompts or story cards could help. Overall, both
-          activities built language skills and creative thinking, with
-          opportunities to improve pacing and inclusivity for quieter
-          participants.
-        </p>
-      </section>
-
-      <section>
-        <h2>Video</h2>
-        <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed/nGll2qpxRlY"
-            title="Language and Literacy Video"
-            frameborder="0"
-            allowfullscreen
-          ></iframe>
+    <main class="container">
+      <!-- Importance (with image) -->
+      <section class="card">
+        <div class="card-body">
+          <div class="alt-row">
+            <div class="alt-text">
+              <h2>Importance</h2>
+              <p>
+                Language and literacy enhance creativity as they help children
+                express their ideas through words, stories, and imagination. The
+                essential skills of communication are constructed through
+                speaking and listening while reading and writing engender
+                original writing. Early childhood use of these skills boosts
+                perspective taking and helps with problem solving. An area that
+                welcomes a multitude of voices, cultures, and stories. It builds
+                a foundation for self-expression, which offers children the
+                chance to create their own stories or poems and helps to develop
+                the confidence and critical thinking necessary for lifelong
+                learning.
+              </p>
+            </div>
+            <div class="alt-media">
+              <img
+                src="img/img13.jpg"
+                alt="Language and literacy illustration"
+              />
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+
+      <!-- Creativity Theories (with video) -->
+      <section class="card">
+        <div class="card-body">
+          <div class="alt-row">
+            <div class="alt-text">
+              <h2>Creativity Theories</h2>
+              <p>
+                With help of storytelling, children learn from one another and
+                create their own stories. Playing with words and sounds helps
+                kids build creative skills and improves with the kids. It
+                indicates the unique ways children’s express ideas through
+                language. Open-ended activities (e.g. improvising a story)
+                encourage different ways of thinking. This method encourages
+                each child's creativity, helping them draw on local culture to
+                explore language.
+              </p>
+            </div>
+            <div class="alt-media">
+              <iframe
+                src="https://www.youtube.com/embed/nGll2qpxRlY"
+                title="Language and Literacy Video"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Resources and Technologies -->
+      <section class="card">
+        <div class="card-body">
+          <h2>Resources and Technologies</h2>
+          <p>
+            Teachers may use picture books, puppets, and writing tools like
+            crayons. Word games and rhyming cards spark imagination. Digital
+            storytelling is possible on tablets with apps such as “Story
+            Creator” or “Read with Me”. Interactive whiteboards display word
+            games for group play. Audio recordings of poems introduce diverse
+            languages. Craft supplies like paper and markers help writing or
+            drawing story. Video tools let kids record their tales. With
+            guidance from the teacher, these are hands-on ways of exploring
+            creativity with language and technology.
+          </p>
+        </div>
+      </section>
+
+      <!-- Learning Experiences -->
+      <section class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+          <ul>
+            <li>
+              <strong>0-2 Years:</strong><br />
+              Sing a Story: Sing a story means singing simple songs and adding
+              actions, and getting your baby to join in.<br />
+              Picture Talk: Show pictures from a book and let infants babble or
+              point (Stadler, 2005).
+            </li>
+            <li>
+              <strong>2-3 Years:</strong><br />
+              Puppet Play: Use puppets to perform a short story where kids will
+              add the lines.<br />
+              Rhyme Time: Clap along to the rhymes; get kids to make up new
+              words (Nyland, 2012).
+            </li>
+            <li>
+              <strong>3-5 Years:</strong><br />
+              Story Chain: You start a story and let the children keep adding
+              (Stadler, 2005).<br />
+              Draw and Tell: Make a picture and tell a story about the picture
+              you made (Stadler, 2005).
+            </li>
+            <li>
+              <strong>6-8 Years:</strong><br />
+              Poetry Jam: Write a short poem together sharing ideas.<br />
+              Digital Tale: Send a text to an online chat to a digital device.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- critical analysis Language & Literacy (with image) -->
+      <section class="card">
+        <div class="card-body">
+          <div class="alt-row">
+            <div class="alt-text">
+              <h2>critical analysis Language & Literacy</h2>
+              <p>
+                The Sing a Story activity for 0–2 years effectively paired
+                rhythm, words, and actions, helping infants link language with
+                movement. Some children were more focused on the actions than
+                the singing, so slowing the pace and repeating sections might
+                improve participation. The Story Chain with 3–5 years sparked
+                imagination and collaboration, with children eagerly adding to
+                the tale. A few struggled to think of ideas quickly—using visual
+                prompts or story cards could help. Overall, both activities
+                built language skills and creative thinking, with opportunities
+                to improve pacing and inclusivity for quieter participants.
+              </p>
+            </div>
+            <div class="alt-media">
+              <img src="img/img2.jpg" alt="Teacher guiding children" />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: subsection toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
   </body>
 </html>

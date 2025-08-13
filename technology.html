@@ -1,195 +1,535 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Technology</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Technology – Creativity Curriculum</title>
     <style>
+      :root {
+        --brand: #0a3e7c;
+        --brand2: #2f82ff;
+        --bg: #f5f8fe;
+        --text: #222;
+        --muted: #5b6b7b;
+        --card: #ffffffee;
+        --border: #dfe7f3;
+        --radius: 18px;
+        --shadow: 0 12px 28px rgba(10, 62, 124, 0.1);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
       body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
         font-family: Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        overflow-x: hidden; /* full-width, no overflow */
+      }
+
+      /* ===== MENU (same pattern used across pages) ===== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 70;
+        backdrop-filter: blur(8px);
+        background: #0b4aa8e6;
+        color: #fff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        position: relative;
+      }
+      .brand {
+        color: #fff;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+      }
+      .nav-toggle {
+        display: none;
+        border: 1px solid #ffffff55;
+        background: transparent;
+        color: #fff;
+        padding: 0.5rem 0.7rem;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .menu {
+        list-style: none;
         margin: 0;
         padding: 0;
-        background: #f9f9f9;
-        color: #222;
-      }
-      header {
-        background: #004080;
-        color: white;
-        padding: 1rem;
         display: flex;
-        gap: 1rem;
+        gap: 0.25rem 0.5rem;
         flex-wrap: wrap;
+        align-items: center;
       }
-      header a {
-        color: white;
+      .menu > li {
+        position: relative;
+      }
+      .menu > li > a,
+      .menu > li > button.submenu-toggle {
+        color: #fff;
         text-decoration: none;
-        padding: 0.5rem 1rem;
+        padding: 0.48rem 0.8rem;
+        border-radius: 999px;
+        transition: background 0.2s ease, transform 0.15s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font: inherit;
       }
-      header a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 5px;
+      .menu > li > a:hover,
+      .menu > li > button.submenu-toggle:hover {
+        background: #ffffff2a;
+        transform: translateY(-1px);
       }
-      .container {
-        max-width: 1000px;
-        margin: auto;
-        padding: 1rem;
-        background: white;
+      .has-dropdown {
+        position: static;
       }
-      h1 {
-        color: #004080;
+      .has-dropdown .dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 80;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 8px 24px rgba(0, 64, 128, 0.08);
+        padding: 14px;
+        display: none;
+        width: clamp(280px, 80vw, 760px);
+        max-width: 96vw;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 12px 24px;
       }
-      h2 {
-        color: #0066cc;
-        margin-top: 1.5rem;
+      .has-dropdown:hover .dropdown {
+        display: grid;
       }
+      .dropdown h4 {
+        margin: 6px 0 8px;
+        color: #0a3e7c;
+        font-size: 0.95rem;
+        letter-spacing: 0.2px;
+      }
+      .dropdown a {
+        display: block;
+        color: #123;
+        text-decoration: none;
+        padding: 6px 8px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+      }
+      .dropdown a:hover {
+        background: #e9f2ff;
+      }
+      @media (max-width: 980px) {
+        .nav {
+          flex-wrap: wrap;
+        }
+        .nav-toggle {
+          display: inline-flex;
+        }
+        .menu {
+          display: none;
+          width: 100%;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 6px;
+          padding-top: 8px;
+        }
+        header.open .menu {
+          display: flex;
+        }
+        .has-dropdown .dropdown {
+          position: static;
+          display: none;
+          width: 100%;
+          grid-template-columns: 1fr;
+          margin-top: 6px;
+          padding: 10px;
+          transform: none;
+        }
+        .has-dropdown.open .dropdown {
+          display: grid;
+        }
+      }
+
+      /* ===== HERO ===== */
+      .hero {
+        background: linear-gradient(180deg, #eaf2ff, #ffffff);
+        padding: 36px 16px;
+        text-align: center;
+      }
+      .hero h1 {
+        margin: 0.2rem 0;
+        font-size: clamp(1.8rem, 1.2rem + 2vw, 2.4rem);
+        color: var(--brand);
+      }
+
+      /* ===== CONTENT WRAPPER ===== */
+      .wrap {
+        width: 100%;
+        max-width: 1400px;
+        margin: 22px auto;
+        padding: 0 12px;
+      }
+
+      /* ===== CARDS ===== */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        margin: 16px 0;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        display: block;
+        height: 6px;
+        background: linear-gradient(90deg, var(--brand), var(--brand2));
+      }
+      .card-body {
+        padding: 18px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: var(--brand);
+        margin: 0 0 0.6rem;
+      }
+      p,
       ul {
-        margin-left: 1.5rem;
+        margin: 0 0 1rem;
+        text-align: justify;
       }
+
+      /* Rows with optional media */
+      .row {
+        display: grid;
+        grid-template-columns: 1.12fr 0.88fr;
+        gap: 22px;
+        align-items: start;
+      }
+      .media {
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        display: flex;
+        justify-content: center;
+      }
+      .media img {
+        width: 90%;
+        height: auto;
+        border-radius: 12px;
+        object-fit: cover;
+        margin: 14px auto;
+      }
+
+      /* Video frames */
       .video-embed {
-        margin: 1rem 0;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+        background: #fff;
       }
       .video-embed iframe {
         width: 100%;
-        height: 400px;
-        border: none;
+        aspect-ratio: 16/9;
+        border: 0;
       }
+
       footer {
         background: #eee;
         text-align: center;
         padding: 1rem;
-        margin-top: 2rem;
+        margin-top: 28px;
+        color: var(--muted);
+      }
+
+      @media (max-width: 900px) {
+        .row {
+          grid-template-columns: 1fr;
+        }
+        .media img {
+          width: 95%;
+          max-height: 340px;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- ====== MENU START ====== -->
     <header>
-      <a href="index.html">Home</a>
-      <a href="movement_and_music.html">Movement And Music</a>
-      <a href="language_and_literacy.html">Language And Literacy</a>
-      <a href="science.html">Science</a>
-      <a href="engineering.html">Engineering</a>
-      <a href="technology.html">Technology</a>
-      <a href="mathematics.html">Mathematics</a>
-      <a href="humanities_and_social_science.html"
-        >Humanities And Social Science</a
-      >
-      <a href="references.html">References</a>
+      <nav class="nav">
+        <div class="brand">Creativity Curriculum</div>
+        <button
+          class="nav-toggle"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+        >
+          ☰ Menu
+        </button>
+        <ul id="primary-menu" class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+
+          <li class="has-dropdown">
+            <button class="submenu-toggle" aria-expanded="false">
+              Section ▾
+            </button>
+            <div class="dropdown" role="menu">
+              <div class="column">
+                <h4>Section A</h4>
+                <a href="index.html">Homepage</a>
+                <a href="arts.html">Arts Role in Stimulating Creativity</a>
+                <a href="drama.html">Drama and Puppetry</a>
+              </div>
+              <div class="column">
+                <h4>Section B</h4>
+                <a href="movement_and_music.html">Movement and Music</a>
+                <a href="language_and_literacy.html">Language and Literacy</a>
+                <a href="science.html">Science</a>
+                <a href="engineering.html">Engineering</a>
+                <a href="technology.html">Technologies</a>
+                <a href="mathematics.html">Mathematics and Numeracy</a>
+                <a href="humanities_and_social_science.html"
+                  >Humanities and Social Sciences</a
+                >
+                <a href="integrated_curriculum.html">Integrated Curriculum</a>
+                <!-- <a href="#">Resources and Technologies</a> -->
+              </div>
+            </div>
+          </li>
+
+          <li><a href="references.html">Reference</a></li>
+        </ul>
+      </nav>
     </header>
+    <!-- ====== MENU END ====== -->
 
-    <div class="container">
+    <!-- HERO -->
+    <section class="hero">
       <h1>Technology</h1>
+    </section>
 
-      <h2>Importance</h2>
-      <p>
-        The use of technology inspires creativity by allowing children to use
-        the tools, apps and inventions of other people. Using devices or
-        building gadgets improves creative thinking and problem-solving skills.
-        When kid is very young, it encourages experimentation with digital and
-        physical materials. This space encourages versatile skills and creative
-        applications of technology. When kids create projects, it builds
-        confidence. This lays the foundation for being technology-oriented and
-        creative thinkers in future learning.
-      </p>
+    <main class="wrap">
+      <!-- Importance (with image) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Importance</h2>
+              <p>
+                The use of technology inspires creativity by allowing children
+                to use the tools, apps and inventions of other people. Using
+                devices or building gadgets improves creative thinking and
+                problem-solving skills. When kid is very young, it encourages
+                experimentation with digital and physical materials. This space
+                encourages versatile skills and creative applications of
+                technology. When kids create projects, it builds confidence.
+                This lays the foundation for being technology-oriented and
+                creative thinkers in future learning.
+              </p>
+            </div>
+            <div class="media">
+              <!-- replace with your real image path -->
+              <img
+                src="img/img3.jpg"
+                alt="Children exploring technology tools"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
 
-      <h2>Creativity Theories</h2>
-      <p>
-        Experimenting with devices and peers enhances creativity in technology.
-        Children can create apps, gadgets, and more to grow their skills. This
-        highlights unique ways children use tech creatively. At young levels
-        like early education, open-ended activities like coding games to
-        encourage diverse thinking and varied solution choices. This method
-        fosters the growth of creativity in each individual, and their
-        exploration of technologies will become more innovative.
-      </p>
+      <!-- Creativity Theories -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Creativity Theories</h2>
+              <p>
+                Experimenting with devices and peers enhances creativity in
+                technology. Children can create apps, gadgets, and more to grow
+                their skills. This highlights unique ways children use tech
+                creatively. At young levels like early education, open-ended
+                activities like coding games to encourage diverse thinking and
+                varied solution choices. This method fosters the growth of
+                creativity in each individual, and their exploration of
+                technologies will become more innovative.
+              </p>
+            </div>
+            <div class="media">
+              <!-- small image on the side -->
+              <img
+                src="img/img2.jpg"
+                alt="Kids collaborating with tablets and robots"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
 
-      <h2>Resources and Technologies</h2>
-      <p>
-        Teachers can use tablets, simple robots, and coding toys such as
-        Bee-Bots. Craft kits with wires and switches inspire invention. Apps
-        such as Code.org teach basics on tablets. Interactive whiteboards show
-        tech tutorials. Audio of machine sounds sparks ideas. Craft supplies
-        like cardboard and LEDs enhance projects. Video tools record tech
-        creations. There are many ways of expressing with the support of a
-        teacher which uses technology like email, blogs, and their use in daily
-        life.
-      </p>
-      <div class="video-embed">
-        <iframe
-          src="https://www.youtube.com/embed/Y1aB8-wnWXc"
-          allowfullscreen
-        ></iframe>
-      </div>
-
-      <h2>Learning Experiences</h2>
-      <ul>
-        <li>
-          <strong>0-2 Years:</strong>
-          <ul>
-            <li>
-              Button Press: Play with a toy that has big buttons that make
-              sounds.
-            </li>
-            <li>
-              Light Play: Observe a teacher switching on and off a safe light
-              toy.
-            </li>
-          </ul>
+      <!-- Resources & Technologies (with top video) -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Resources and Technologies</h2>
+          <p>
+            Teachers can use tablets, simple robots, and coding toys such as
+            Bee-Bots. Craft kits with wires and switches inspire invention. Apps
+            such as Code.org teach basics on tablets. Interactive whiteboards
+            show tech tutorials. Audio of machine sounds sparks ideas. Craft
+            supplies like cardboard and LEDs enhance projects. Video tools
+            record tech creations. There are many ways of expressing with the
+            support of a teacher which uses technology like email, blogs, and
+            their use in daily life.
+          </p>
           <div class="video-embed">
             <iframe
-              src="https://www.youtube.com/embed/d4-FegihyoI"
+              src="https://www.youtube.com/embed/Y1aB8-wnWXc"
+              title="Technology overview"
               allowfullscreen
             ></iframe>
           </div>
-        </li>
-        <li>
-          <strong>2-3 Years:</strong>
-          <ul>
-            <li>Toy Robot: Push a simple robot that moves and explores.</li>
-            <li>
-              Sound Board: Press on a pad that makes a sound to create a
-              pattern.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>3-5 Years:</strong>
-          <ul>
-            <li>
-              Coding Game: The character moves according to a tablet’s dot
-              (Papadakis S. M., 2016).
-            </li>
-            <li>
-              Build Circuit: Conduct circuit activity with assistance from the
-              teacher.
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>6-8 Years:</strong>
-          <ul>
-            <li>
-              App Design: Make a simple game on a tablet. (Papadakis S. M.,
-              2016)
-            </li>
-            <li>Robot Challenge: Make a robot trace a path.</li>
-          </ul>
-        </li>
-      </ul>
+        </div>
+      </article>
 
-      <h2>Critical Analysis</h2>
-      <p>
-        The Button Press activity for 0–2 years introduced cause-and-effect
-        through sound and light. Infants reacted with excitement to the
-        immediate feedback. Some became frustrated when the toy didn’t respond
-        quickly—using responsive, durable devices would improve the experience.
-        The Coding Game for 3–5 years captivated children, who enjoyed seeing
-        their commands come to life on-screen. Technical delays occasionally
-        interrupted focus—having backup offline coding activities would be
-        helpful. Both activities promoted curiosity and early digital literacy,
-        with potential for improvement through smoother transitions and varied
-        tech tools.
-      </p>
-    </div>
+      <!-- Learning Experiences (kept structure, includes the 0–2 video inside first item) -->
+      <article class="card">
+        <div class="card-body">
+          <h2>Learning Experiences</h2>
+          <ul>
+            <li>
+              <strong>0-2 Years:</strong>
+              <ul>
+                <li>
+                  Button Press: Play with a toy that has big buttons that make
+                  sounds.
+                </li>
+                <li>
+                  Light Play: Observe a teacher switching on and off a safe
+                  light toy.
+                </li>
+              </ul>
+              <div class="video-embed">
+                <iframe
+                  src="https://www.youtube.com/embed/d4-FegihyoI"
+                  title="0–2 Years Technology Activity"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            </li>
+            <li>
+              <strong>2-3 Years:</strong>
+              <ul>
+                <li>Toy Robot: Push a simple robot that moves and explores.</li>
+                <li>
+                  Sound Board: Press on a pad that makes a sound to create a
+                  pattern.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>3-5 Years:</strong>
+              <ul>
+                <li>
+                  Coding Game: The character moves according to a tablet’s dot
+                  (Papadakis S. M., 2016).
+                </li>
+                <li>
+                  Build Circuit: Conduct circuit activity with assistance from
+                  the teacher.
+                </li>
+              </ul>
+            </li>
+            <li>
+              <strong>6-8 Years:</strong>
+              <ul>
+                <li>
+                  App Design: Make a simple game on a tablet. (Papadakis S. M.,
+                  2016)
+                </li>
+                <li>Robot Challenge: Make a robot trace a path.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Critical Analysis (with image) -->
+      <article class="card">
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <h2>Critical Analysis</h2>
+              <p>
+                The Button Press activity for 0–2 years introduced
+                cause-and-effect through sound and light. Infants reacted with
+                excitement to the immediate feedback. Some became frustrated
+                when the toy didn’t respond quickly—using responsive, durable
+                devices would improve the experience. The Coding Game for 3–5
+                years captivated children, who enjoyed seeing their commands
+                come to life on-screen. Technical delays occasionally
+                interrupted focus—having backup offline coding activities would
+                be helpful. Both activities promoted curiosity and early digital
+                literacy, with potential for improvement through smoother
+                transitions and varied tech tools.
+              </p>
+            </div>
+            <div class="media">
+              <!-- replace with your real image path -->
+              <img
+                src="img/img1.jpg"
+                alt="Child pressing buttons on a tech toy"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
 
     <footer>Creativity in Curriculum Website</footer>
+
+    <script>
+      // Mobile: top-level menu toggle
+      const headerEl = document.querySelector("header");
+      const toggleBtn = document.querySelector(".nav-toggle");
+      toggleBtn?.addEventListener("click", () => {
+        const isOpen = headerEl.classList.toggle("open");
+        toggleBtn.setAttribute("aria-expanded", String(isOpen));
+      });
+
+      // Mobile: subsection toggle
+      document.querySelectorAll(".submenu-toggle").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 980px)").matches) {
+            const li = btn.closest(".has-dropdown");
+            const open = li.classList.toggle("open");
+            btn.setAttribute("aria-expanded", String(open));
+          }
+        });
+      });
+    </script>
   </body>
 </html>
